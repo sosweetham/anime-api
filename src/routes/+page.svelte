@@ -1,36 +1,50 @@
-<div class="bg-[url('/images/bg.jpeg')] h-[75vh] w-screen bg-no-repeat bg-cover -scale-x-100">
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
+
+	let ready = false;
+	onMount(() => {
+		ready = true;
+	});
+</script>
+
+{#if ready}
+	<div class="bg-[url('/images/bg.jpeg')] h-[75vh] w-screen bg-no-repeat bg-cover -scale-x-100">
+		<div
+			in:fade={{ delay: 700 }}
+			class="bg-[url('/images/hero-rem.png')] h-[75vh] w-full bg-no-repeat bg-right-bottom bg-contain -scale-x-100"
+		>
+			⠀
+		</div>
+	</div>
+	<div id="stripe-bound">
+		<div id="stripe-container">
+			<div id="stripe-pattern" />
+		</div>
+	</div>
 	<div
-		class="bg-[url('/images/hero-rem.png')] h-[75vh] w-full bg-no-repeat bg-right-bottom bg-contain -scale-x-100"
+		in:fade={{ delay: 300 }}
+		id="content-container"
+		class="text-white font-black flex flex-col w-full h-full items-center justify-center gap-4 md:flex-row lg:justify-between lg:ml-4 lg:pr-8"
 	>
-		⠀
+		<div class="text-stroke text-3xl text-center mix-blend-multiply md:text-6xl lg:text-8xl">
+			ANIME-API
+			<span class="block text-xl md:text-2xl md:inline lg:text-3xl"> (coming soon) </span>
+		</div>
+		<a in:fade={{ delay: 500 }} id="join-discord" class="rounded-md" href="https://google.com">
+			<button class="text-white relative p-4 flex gap-2 items-center">
+				<img
+					id="emilia-sticker"
+					class="absolute h-1/2 aspect-square rotate-180 -scale-x-100 opacity-0 translate-x-6 -translate-y-11"
+					src="/images/emilia-sticker.png"
+					alt=""
+				/>
+				<img class="w-10 h-10" src="/images/discord-mark-white.svg" alt="discord" />
+				Join the Server!
+			</button>
+		</a>
 	</div>
-</div>
-<div id="stripe-bound">
-	<div id="stripe-container">
-		<div id="stripe-pattern" />
-	</div>
-</div>
-<div
-	id="content-container"
-	class="text-white font-black flex flex-col w-full h-full items-center justify-center gap-4 md:flex-row lg:justify-between lg:ml-4 lg:pr-8"
->
-	<div class="text-stroke text-3xl text-center mix-blend-multiply md:text-6xl lg:text-8xl">
-		ANIME-API
-		<span class="block text-xl md:text-2xl md:inline lg:text-3xl"> (coming soon) </span>
-	</div>
-	<a id="join-discord" class="rounded-md" href="https://google.com">
-		<button class="text-white relative p-4 flex gap-2 items-center">
-			<img
-				id="emilia-sticker"
-				class="absolute h-1/2 aspect-square rotate-180 -scale-x-100 opacity-0 translate-x-6 -translate-y-11"
-				src="/images/emilia-sticker.png"
-				alt=""
-			/>
-			<img class="w-10 h-10" src="/images/discord-mark-white.svg" alt="discord" />
-			Join the Server!
-		</button>
-	</a>
-</div>
+{/if}
 
 <style lang="postcss">
 	#join-discord {
