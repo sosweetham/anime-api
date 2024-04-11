@@ -12,7 +12,7 @@
 	<div class="bg-[url('/images/bg.jpeg')] h-[75vh] w-screen bg-no-repeat bg-cover -scale-x-100">
 		<div
 			in:fade={{ delay: 700 }}
-			class="bg-[url('/images/hero-rem.png')] h-[75vh] w-full bg-no-repeat bg-right-bottom bg-contain -scale-x-100"
+			class="bg-[url('/images/rem.png')] h-[75vh] w-full bg-no-repeat bg-right-bottom bg-contain -scale-x-100"
 		>
 			⠀
 		</div>
