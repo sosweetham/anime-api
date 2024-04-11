@@ -31,8 +31,14 @@
 			ANIME-API
 			<span class="block text-xl md:text-2xl md:inline lg:text-3xl"> (coming soon) </span>
 		</div>
-		<a in:fade={{ delay: 500 }} id="join-discord" class="rounded-md" href="https://google.com">
-			<button class="text-white relative p-4 flex gap-2 items-center">
+		<a
+			in:fade={{ delay: 500 }}
+			id="join-discord"
+			class="rounded-md"
+			target="_blank"
+			href="https://discord.gg/aZhtbMHCrZ"
+		>
+			<button class="text-white relative p-4 flex gap-2 items-center overflow-hidden">
 				<img
 					id="emilia-sticker"
 					class="absolute h-1/2 aspect-square rotate-180 -scale-x-100 opacity-0 translate-x-6 -translate-y-11"
