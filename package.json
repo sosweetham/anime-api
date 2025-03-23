@@ -1,0 +1,20 @@
+{
+  "name": "anime-api",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@biomejs/biome": "^1.9.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "format": "bun --filter '*' format",
+    "lint": "bun --filter '*' lint",
+    "check": "bun --filter '*' check",
+    "api::dev": "bun --filter @anime-api/api dev"
+  }
+}

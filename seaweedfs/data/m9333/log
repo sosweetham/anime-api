@@ -1,0 +1,4 @@
+      50
+	raft:join"A{"name":"172.19.0.3:9333","connectionString":"172.19.0.3:19333"}
+       c
+raft:nop
