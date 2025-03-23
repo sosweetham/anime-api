@@ -1,0 +1,19 @@
+{
+  "name": "@anime-api/api",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun --watch src/index.ts",
+    "format": "bunx @biomejs/biome format --write ./src",
+    "lint": "bunx @biomejs/biome lint --write ./src",
+    "check": "bunx @biomejs/biome check --write ./src"
+  },
+  "dependencies": {
+    "elysia": "1.2.15",
+    "surrealdb": "^1.2.1"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}
