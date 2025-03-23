@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
-	let ready = false;
+	let ready = $state(false);
 	onMount(() => {
 		ready = true;
 	});
@@ -19,7 +19,7 @@
 	</div>
 	<div id="stripe-bound">
 		<div id="stripe-container">
-			<div id="stripe-pattern" />
+			<div id="stripe-pattern"></div>
 		</div>
 	</div>
 	<div
