@@ -19,28 +19,35 @@ export async function getDb(
 ): Promise<Surreal> {
   const db = new Surreal();
 
-  try {
-    await db.connect(config.url, {
-      auth: {
+  let shouldRetry = true;
+
+  while (shouldRetry) {
+    // delay of 5 seconds
+    console.log("Retrying connection to SurrealDB in 5 seconds...");
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    try {
+      await db.connect(config.url, {
+        auth: {
+          database: config.database,
+          namespace: config.namespace,
+          username: "toomuchham",
+          password: "ball",
+        },
+      });
+      await db.use({
         database: config.database,
         namespace: config.namespace,
-        username: "toomuchham",
-        password: "ball",
-      },
-    });
-    await db.use({
-      database: config.database,
-      namespace: config.namespace,
-    });
-    return db;
-  } catch (err) {
-    console.error(
-      "Failed to connect to SurrealDB:",
-      err instanceof Error ? err.message : String(err)
-    );
-    await db.close();
-    throw err;
+      });
+      shouldRetry = false;
+    } catch (err) {
+      console.error(
+        "Failed to connect to SurrealDB:",
+        err instanceof Error ? err.message : String(err)
+      );
+      await db.close();
+    }
   }
+  return db;
 }
 
 export const db = await getDb();

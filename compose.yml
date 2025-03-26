@@ -22,7 +22,7 @@ services:
     env_file:
       - .env
     ports:
-      - $API_PORT:3000
+      - ${API_PORT:-3000}:${API_PORT:-3000}
     depends_on:
       - anime-api-database
       - anime-api-seaweedfs
@@ -52,3 +52,13 @@ services:
       - "8080:8080"
       - "8888:8888"
     command: server -s3 -s3.config=/etc/seaweedfs/s3_config.json
+  anime-api-kvs:
+    container_name: anime-api-kvs
+    hostname: anime-api-kvs
+    image: valkey/valkey:8.0.2-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./kvs/data:/data
+    command: ["valkey-server", "--save", "60", "1", "--loglevel", "notice"]
