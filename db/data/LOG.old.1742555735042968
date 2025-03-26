@@ -1,2 +1,0 @@
-2025/03/21-11:03:12.250282 281473094524960 [WARN] [db/error_handler.cc:392] Background IO error IO error: No space left on device: While open a file for appending: db/000097.log: No space left on device, reason 2
-2025/03/21-11:03:12.296990 281473094524960 [WARN] [db/db_impl/db_impl.cc:644] Unable to clear writer for WAL db/000093.log with error -- IO error: Seen error. Skip writing buffer.

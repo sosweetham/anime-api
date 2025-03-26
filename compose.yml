@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     # command: surreal start --allow-guests --auth --log $DB_LOG_LEVEL --user $DB_USER --pass $DB_PASSWORD file:/db
-    command: start --user $DB_USER --pass $DB_PASSWORD rocksdb://db
+    command: start --user $DB_USER --pass $DB_PASSWORD rocksdb://db --allow-net
     ports:
       - $DB_PORT:8000
   anime-api-api:
@@ -25,6 +25,7 @@ services:
       - $API_PORT:3000
     depends_on:
       - anime-api-database
+      - anime-api-seaweedfs
     develop:
       watch:
         - action: sync
@@ -33,7 +34,7 @@ services:
           ignore:
             - node_modules
         - action: rebuild
-          path: ./apps/api
+          path: ./apps/api/package.json
         - action: sync+restart
           path: ./.env
           target: /app/.env

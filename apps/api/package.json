@@ -9,7 +9,11 @@
     "check": "bunx @biomejs/biome check --write ./src"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.2.0",
+    "@elysiajs/swagger": "^1.2.2",
+    "better-auth": "^1.2.4",
     "elysia": "1.2.15",
+    "surreal-better-auth": "^0.6.0",
     "surrealdb": "^1.2.1"
   },
   "devDependencies": {
