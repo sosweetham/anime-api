@@ -175,3 +175,4 @@ dist
 .DS_Store
 
 db/data
+seaweedfs/data
