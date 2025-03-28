@@ -2,6 +2,16 @@ import { Elysia } from "elysia";
 import swagger from "@elysiajs/swagger";
 import cors from "@elysiajs/cors";
 import { routes } from "./routes";
+import { handleExit, handleSigInt, handleSigTerm } from "./utils";
+import { cleanup } from "./scripts";
+
+cleanup();
+// killContainerProcesses();
+
+// Handle termination signals
+process.on("SIGINT", handleSigInt);
+process.on("SIGTERM", handleSigTerm);
+process.on("exit", handleExit);
 
 const app = new Elysia()
   .get("/", () => "Hello Elysia")

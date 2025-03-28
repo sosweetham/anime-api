@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { surrealAdapter } from "surreal-better-auth";
 import { db } from "../../stores/db";
 import { kvsClient } from "../../stores/kvs";
-import { TimeUnit, GlideString } from "@valkey/valkey-glide";
+import { TimeUnit } from "@valkey/valkey-glide";
 
 export const auth = betterAuth({
   database: surrealAdapter(db),

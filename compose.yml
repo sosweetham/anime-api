@@ -21,6 +21,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      - PLATFORM=CONTAINER
     ports:
       - ${API_PORT:-3000}:${API_PORT:-3000}
     depends_on:
@@ -34,7 +36,7 @@ services:
           ignore:
             - node_modules
         - action: rebuild
-          path: ./apps/api/package.json
+          path: ./bun.lock
         - action: sync+restart
           path: ./.env
           target: /app/.env
