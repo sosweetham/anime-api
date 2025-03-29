@@ -2,9 +2,9 @@
 import { onMount } from "svelte";
 import "../app.css";
 import * as Sidebar from "$lib/components/ui/sidebar";
+import { Toaster } from "$lib/components/ui/sonner";
 import type { Theme } from "$lib/controllers/theme";
 import AppSidebar from "$lib/fragments/AppSidebar.svelte";
-    import { Toaster } from "$lib/components/ui/sonner";
 let { children } = $props();
 onMount(async () => {
     const { runtime } = await import("$lib/controllers/runtime.svelte");

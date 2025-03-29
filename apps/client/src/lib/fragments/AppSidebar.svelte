@@ -1,6 +1,6 @@
 <script lang="ts">
 import { page } from "$app/state";
-import { toast } from "svelte-sonner";
+import { Button } from "$lib/components/ui/button";
 import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 import {
     Cpu,
@@ -11,8 +11,8 @@ import {
     Piano,
     Podcast,
 } from "@lucide/svelte";
+import { toast } from "svelte-sonner";
 import LightSwitch from "./LightSwitch.svelte";
-    import { Button } from "$lib/components/ui/button";
 
 const supported: {
     icon: typeof Icon;

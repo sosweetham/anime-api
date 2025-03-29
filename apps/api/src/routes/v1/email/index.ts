@@ -19,5 +19,5 @@ export const email = new Elysia().post(
         body: t.Object({
             email: t.String({ format: "email" }),
         }),
-    }
+    },
 );
