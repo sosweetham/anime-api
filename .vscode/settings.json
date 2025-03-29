@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["bunx", "elysia", "rocksdb", "surrealdb"]
+    "cSpell.words": ["bunx", "elysia", "rocksdb", "surrealdb"],
+    "editor.formatOnSave": true
 }
