@@ -1,5 +1,6 @@
 <script lang="ts">
 import { page } from "$app/state";
+import { toast } from "svelte-sonner";
 import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 import {
     Cpu,
@@ -11,6 +12,7 @@ import {
     Podcast,
 } from "@lucide/svelte";
 import LightSwitch from "./LightSwitch.svelte";
+    import { Button } from "$lib/components/ui/button";
 
 const supported: {
     icon: typeof Icon;
@@ -79,6 +81,7 @@ const supported: {
 		</Sidebar.Group>
 	</Sidebar.Content>
 	<Sidebar.Footer>
+        <Button onclick={() => toast("Hello world")}>Show toast</Button>
 		<div class="flex justify-between">
 			<div></div>
 			<div>

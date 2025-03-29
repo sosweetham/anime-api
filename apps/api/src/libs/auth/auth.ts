@@ -3,11 +3,25 @@ import { betterAuth } from "better-auth";
 import { surrealAdapter } from "surreal-better-auth";
 import { db } from "../../stores/db";
 import { kvsClient } from "../../stores/kvs";
+import { emailTransporter } from "../email";
 
 export const auth = betterAuth({
     database: surrealAdapter(db),
     emailAndPassword: {
         enabled: true,
+        requireEmailVerification: true,
+    },
+    emailVerification: {
+        sendVerificationEmail: async ({ user, url, token }, request) => {
+            const html = `Click the link to verify your email: ${url}`;
+
+            await emailTransporter.sendMail({
+                from: "ham@mail.kodski.com",
+                to: user.email,
+                subject: "Test Email",
+                html,
+            });
+        },
     },
     trustedOrigins: ["http://localhost:5173"],
     secondaryStorage: {

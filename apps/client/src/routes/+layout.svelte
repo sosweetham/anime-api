@@ -4,6 +4,7 @@ import "../app.css";
 import * as Sidebar from "$lib/components/ui/sidebar";
 import type { Theme } from "$lib/controllers/theme";
 import AppSidebar from "$lib/fragments/AppSidebar.svelte";
+    import { Toaster } from "$lib/components/ui/sonner";
 let { children } = $props();
 onMount(async () => {
     const { runtime } = await import("$lib/controllers/runtime.svelte");
@@ -18,11 +19,12 @@ onMount(async () => {
 });
 </script>
 
+<Toaster />
 <Sidebar.Provider open={false} class="overflow-x-hidden">
     <div class="absolute">
         <AppSidebar />
     </div>
-	<div class="absolute bottom-4 left-5 z-50">
+	<div class="fixed bottom-4 left-5 z-50">
 		<Sidebar.Trigger />
 	</div>
     {@render children()}
