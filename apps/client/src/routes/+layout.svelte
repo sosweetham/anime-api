@@ -1,8 +1,8 @@
 <script lang="ts">
 import { onMount } from "svelte";
 import "../app.css";
-import type { Theme } from "$lib/controllers/theme";
 import * as Sidebar from "$lib/components/ui/sidebar";
+import type { Theme } from "$lib/controllers/theme";
 import AppSidebar from "$lib/fragments/AppSidebar.svelte";
 let { children } = $props();
 onMount(async () => {

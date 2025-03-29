@@ -4,11 +4,11 @@ import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 import {
     Cpu,
     Flame,
+    type Icon,
     Newspaper,
     Paintbrush,
     Piano,
     Podcast,
-    type Icon,
 } from "@lucide/svelte";
 import LightSwitch from "./LightSwitch.svelte";
 

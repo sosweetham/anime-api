@@ -1,9 +1,9 @@
 <script lang="ts">
-import Sun from "@lucide/svelte/icons/sun";
 import Moon from "@lucide/svelte/icons/moon";
+import Sun from "@lucide/svelte/icons/sun";
 
-import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
 import { buttonVariants } from "$lib/components/ui/button/index.js";
+import * as DropdownMenu from "$lib/components/ui/dropdown-menu/index.js";
 import { runtime } from "$lib/controllers/runtime.svelte";
 </script>
 
