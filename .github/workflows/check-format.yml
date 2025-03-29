@@ -26,4 +26,4 @@ jobs:
                   bun i
 
             - name: Check Format
-              run: bun check-format
+              run: bun ci::check-format

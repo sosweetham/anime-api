@@ -14,9 +14,13 @@
     "scripts": {
         "format": "bun --elide-lines 0 --filter '*' format ",
         "check-format": "bun --elide-lines 0 --filter '*' check-format",
+        "ci::check-format": "bun --filter '*' check-format",
         "lint": "bun --elide-lines 0 --filter '*' lint",
         "check-lint": "bun --elide-lines 0 --filter '*' check-lint",
+        "ci::check-lint": "bun --filter '*' check-lint",
         "check": "bun --elide-lines 0 --filter '*' check",
+        "check-fix": "bun --elide-lines 0 --filter '*' check-fix",
+        "ci::check": "bun --filter '*' check",
         "api::dev": "bun --filter @anime-api/api dev"
     },
     "packageManager": "bun@1.2.7"

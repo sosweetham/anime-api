@@ -26,4 +26,4 @@ jobs:
                   bun i
 
             - name: Check Lint
-              run: bun check-lint
+              run: bun ci::check-lint

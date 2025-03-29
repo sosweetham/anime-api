@@ -31,6 +31,7 @@
         "preview": "vite preview",
         "prepare": "svelte-kit sync || echo ''",
         "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json && bunx @biomejs/biome check ./src",
+        "check-fix": "bunx @biomejs/biome check --write ./src",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
         "test:unit": "vitest",
         "test": "npm run test:unit -- --run && npm run test:e2e",
