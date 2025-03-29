@@ -10,7 +10,6 @@ process.on("SIGINT", handleSigInt);
 process.on("SIGTERM", handleSigTerm);
 process.on("exit", handleExit);
 
-cleanup();
 const app = new Elysia()
     .get("/", () => "Hello Elysia")
     .use(cors())
@@ -19,5 +18,5 @@ const app = new Elysia()
     .listen(Number.parseInt(Bun.env.API_PORT || "4000"));
 
 console.log(
-    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
+    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 );

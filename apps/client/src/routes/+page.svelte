@@ -57,20 +57,20 @@ onMount(() => {
 </div>
 
 <style lang="postcss">
-	#join-discord {
+	/* #join-discord {
 		background-color: #5865f2;
-		/* &:hover {
+		&:hover {
 			#emilia-sticker {
 				opacity: 1;
 				animation: sticker 1s ease-in-out infinite;
 			}
-		} */
+		}
 		&:hover #emilia-sticker {
 			opacity: 1;
 			translate: 0 26px;
 			transition: all 0.5s ease-in;
 		}
-	}
+	} */
 	.text-stroke {
 		text-shadow:
 			-1px -1px 0 #eb459e,

@@ -21,6 +21,4 @@ FROM base AS api
 COPY --from=build /app /app
 WORKDIR /app/apps/api
 EXPOSE 3000
-# Valkey Glide https://github.com/valkey-io/valkey-glide/issues/2985
-# https://github.com/valkey-io/valkey-glide/issues/2985#issuecomment-2606172206
-CMD ["bun", "dev"] 
+CMD ["bun", "dev"]

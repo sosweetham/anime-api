@@ -1,66 +1,67 @@
 services:
-  anime-api-database:
-    container_name: anime-api-database
-    hostname: anime-api-database
-    image: surrealdb/surrealdb:v2.2.1
-    restart: unless-stopped
-    volumes:
-      - ./db/data:/db
-    env_file:
-      - .env
-    # command: surreal start --allow-guests --auth --log $DB_LOG_LEVEL --user $DB_USER --pass $DB_PASSWORD file:/db
-    command: start --user $DB_USER --pass $DB_PASSWORD rocksdb://db --allow-net
-    ports:
-      - $DB_PORT:8000
-  anime-api-api:
-    container_name: anime-api-api
-    hostname: anime-api-api
-    build:
-      context: .
-      dockerfile: docker/dev/api.dockerfile
-    restart: unless-stopped
-    env_file:
-      - .env
-    environment:
-      - PLATFORM=CONTAINER
-    ports:
-      - ${API_PORT:-3000}:${API_PORT:-3000}
-    depends_on:
-      - anime-api-database
-      - anime-api-seaweedfs
-    develop:
-      watch:
-        - action: sync
-          path: ./apps/api
-          target: /app/apps/api
-          ignore:
-            - node_modules
-        - action: rebuild
-          path: ./bun.lock
-        - action: sync+restart
-          path: ./.env
-          target: /app/.env
-  anime-api-seaweedfs:
-    container_name: anime-api-seaweedfs
-    hostname: anime-api-seaweedfs
-    image: chrislusf/seaweedfs:3.85
-    restart: unless-stopped
-    volumes:
-      - ./seaweedfs/data:/data
-      - ./seaweedfs/s3_config.json:/etc/seaweedfs/s3_config.json
-    ports:
-      - "8333:8333"
-      - "9333:9333"
-      - "8080:8080"
-      - "8888:8888"
-    command: server -s3 -s3.config=/etc/seaweedfs/s3_config.json
-  anime-api-kvs:
-    container_name: anime-api-kvs
-    hostname: anime-api-kvs
-    image: valkey/valkey:8.0.2-alpine
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    volumes:
-      - ./kvs/data:/data
-    command: ["valkey-server", "--save", "60", "1", "--loglevel", "notice"]
+    anime-api-database:
+        container_name: anime-api-database
+        hostname: anime-api-database
+        image: surrealdb/surrealdb:v2.2.1
+        restart: unless-stopped
+        volumes:
+            - ./db/data:/db
+        env_file:
+            - .env
+        # command: surreal start --allow-guests --auth --log $DB_LOG_LEVEL --user $DB_USER --pass $DB_PASSWORD file:/db
+        command: start --user $DB_USER --pass $DB_PASSWORD rocksdb://db --allow-net
+        ports:
+            - $DB_PORT:8000
+    anime-api-seaweedfs:
+        container_name: anime-api-seaweedfs
+        hostname: anime-api-seaweedfs
+        image: chrislusf/seaweedfs:3.85
+        restart: unless-stopped
+        volumes:
+            - ./seaweedfs/data:/data
+            - ./seaweedfs/s3_config.json:/etc/seaweedfs/s3_config.json
+        ports:
+            - "8333:8333"
+            - "9333:9333"
+            - "8080:8080"
+            - "8888:8888"
+        command: server -s3 -s3.config=/etc/seaweedfs/s3_config.json
+    anime-api-kvs:
+        container_name: anime-api-kvs
+        hostname: anime-api-kvs
+        image: valkey/valkey:8.0.2-alpine
+        restart: unless-stopped
+        ports:
+            - "6379:6379"
+        volumes:
+            - ./kvs/data:/data
+        command: ["valkey-server", "--save", "60", "1", "--loglevel", "notice"]
+    anime-api-api:
+        container_name: anime-api-api
+        hostname: anime-api-api
+        build:
+            context: .
+            dockerfile: docker/dev/api.dockerfile
+        restart: unless-stopped
+        env_file:
+            - .env
+        environment:
+            - PLATFORM=CONTAINER
+        ports:
+            - ${API_PORT:-3000}:${API_PORT:-3000}
+        depends_on:
+            - anime-api-database
+            - anime-api-seaweedfs
+            - anime-api-kvs
+        develop:
+            watch:
+                - action: sync
+                  path: ./apps/api
+                  target: /app/apps/api
+                  ignore:
+                      - node_modules
+                - action: rebuild
+                  path: ./bun.lock
+                - action: sync+restart
+                  path: ./.env
+                  target: /app/.env

@@ -8,9 +8,10 @@ const SOCKET_PREFIX = "glide-socket-";
 
 export const cleanup = () => {
     console.log("Cleanup called");
-    if (Bun.env.PLATFORM === "DOCKER_CONTAINER") {
+    if (Bun.env.PLATFORM === "CONTAINER") {
         try {
             const files = readdirSync(TMP_DIR);
+            console.log("Files in /tmp:", files);
             for (const file of files) {
                 if (file.startsWith(SOCKET_PREFIX)) {
                     const filePath = join(TMP_DIR, file);
