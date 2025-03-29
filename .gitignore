@@ -177,3 +177,5 @@ dist
 db/data
 seaweedfs/data
 kvs/data
+
+.turbo

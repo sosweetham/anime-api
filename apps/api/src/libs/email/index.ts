@@ -8,12 +8,12 @@
 import nodemailer from "nodemailer";
 
 export const emailTransporter = nodemailer.createTransport({
-  host: Bun.env.SMTP_HOST,
-  port: parseInt(Bun.env.SMTP_PORT || "465"),
-  auth: {
-    user: Bun.env.SMTP_USER,
-    pass: Bun.env.SMTP_PASS,
-  },
+    host: Bun.env.SMTP_HOST,
+    port: Number.parseInt(Bun.env.SMTP_PORT || "465"),
+    auth: {
+        user: Bun.env.SMTP_USER,
+        pass: Bun.env.SMTP_PASS,
+    },
 });
 
 // export const sampleMail = new Elysia().get(

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
+import { onMount } from "svelte";
+import { fade } from "svelte/transition";
 
-	let ready = $state(false);
-	onMount(() => {
-		ready = true;
-	});
+let ready = $state(false);
+onMount(() => {
+    ready = true;
+});
 </script>
 
 {#if ready}

@@ -3,10 +3,12 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun --watch src/index.ts",
-    "format": "bunx @biomejs/biome format --write ./src",
-    "lint": "bunx @biomejs/biome lint --write ./src",
-    "check": "bunx @biomejs/biome check --write ./src"
+    "dev": "bun src/scripts/cleanup.ts && bun --watch src/index.ts",
+    "format": "npx @biomejs/biome format --write ./src",
+    "check-format": "npx @biomejs/biome format ./src",
+    "lint": "npx @biomejs/biome lint --write ./src",
+    "check-lint": "npx @biomejs/biome lint ./src",
+    "check": "bunx @biomejs/biome check ./src"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.2.0",
