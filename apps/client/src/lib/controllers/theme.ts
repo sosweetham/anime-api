@@ -23,7 +23,7 @@ export class ThemeController {
 
         document.documentElement.classList.remove("light", "dark", "system");
         if (theme === "system") {
-            if (window?.matchMedia?.("(prefers-color-scheme:·dark)").matches) {
+            if (window?.matchMedia?.("(prefers-color-scheme: dark)").matches) {
                 document.documentElement.classList.remove("light", "dark");
                 document.documentElement.classList.add("dark", "system");
             } else {
