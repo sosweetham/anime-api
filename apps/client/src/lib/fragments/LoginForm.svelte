@@ -1,44 +1,59 @@
 <script lang="ts">
-    import * as Card from "$lib/components/ui/card";
-    import * as Form from "$lib/components/ui/form";
-    import { superForm, defaults, setMessage, setError } from 'sveltekit-superforms';
-    import { zod } from 'sveltekit-superforms/adapters';
-    import { emailSignInSchema } from '$lib/schemas';
-    import { Input } from "$lib/components/ui/input";
-    import { toast } from "svelte-sonner";
-    import { authClient } from "$lib/auth-client";
-    import { Checkbox } from "$lib/components/ui/checkbox";
+import * as Card from "$lib/components/ui/card";
+import * as Form from "$lib/components/ui/form";
+import {
+    superForm,
+    defaults,
+    setMessage,
+    setError,
+} from "sveltekit-superforms";
+import { zod } from "sveltekit-superforms/adapters";
+import { emailSignInSchema } from "$lib/schemas";
+import { Input } from "$lib/components/ui/input";
+import { toast } from "svelte-sonner";
+import { authClient } from "$lib/auth-client";
+import { Checkbox } from "$lib/components/ui/checkbox";
 
-    const form = superForm(defaults({rememberMe: false},zod(emailSignInSchema)), {
+const form = superForm(
+    defaults({ rememberMe: false }, zod(emailSignInSchema)),
+    {
         SPA: true,
         validators: zod(emailSignInSchema),
-        onUpdate: async ({form}) => {
+        onUpdate: async ({ form }) => {
             if (form.valid) {
-                console.log(form)
-                setMessage(form, 'Form is Valid');
+                console.log(form);
+                setMessage(form, "Form is Valid");
                 const signInRes = await authClient.signIn.email({
                     email: form.data.email,
                     password: form.data.password,
                     rememberMe: form.data.rememberMe,
-                    callbackURL: '/'
-                })
+                    callbackURL: "/",
+                });
                 if (signInRes.error) {
-                    setError(form, signInRes.error.message || signInRes.error.statusText);
-                    toast.error(signInRes.error.message || signInRes.error.statusText);
+                    setError(
+                        form,
+                        signInRes.error.message || signInRes.error.statusText,
+                    );
+                    toast.error(
+                        signInRes.error.message || signInRes.error.statusText,
+                    );
                     return;
                 }
                 if (signInRes.data) {
-                    setMessage(form, 'Login Successful');
-                    toast.success(`Successfully logged in as ${signInRes.data.user.email}`);
+                    setMessage(form, "Login Successful");
+                    toast.success(
+                        `Successfully logged in as ${signInRes.data.user.email}`,
+                    );
                     return;
                 }
                 return;
             }
-            setError(form, 'Form is Invalid');
-        }
-    })
+            setError(form, "Form is Invalid");
+        },
+    },
+);
 
-    const  {form: formData, enhance} = form
+const { form: formData, enhance } = form;
 </script>
 
 <Card.Root class="mx-auto max-w-sm">

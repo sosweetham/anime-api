@@ -2,11 +2,7 @@
 import { page } from "$app/state";
 import { Button } from "$lib/components/ui/button";
 import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-import {
-    Flame,
-    type Icon,
-    Newspaper,
-} from "@lucide/svelte";
+import { Flame, type Icon, Newspaper } from "@lucide/svelte";
 import LightSwitch from "./LightSwitch.svelte";
 
 const supported: {
