@@ -9,10 +9,11 @@ export const auth = betterAuth({
     database: surrealAdapter(db),
     emailAndPassword: {
         enabled: true,
-        requireEmailVerification: true,
+        // requireEmailVerification: true,
+        autoSignIn: false,
     },
     emailVerification: {
-        sendVerificationEmail: async ({ user, url, token }, request) => {
+        sendVerificationEmail: async ({ user, url }) => {
             const html = `Click the link to verify your email: ${url}`;
 
             await emailTransporter.sendMail({
