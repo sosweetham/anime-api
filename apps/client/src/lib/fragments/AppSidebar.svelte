@@ -4,6 +4,8 @@ import { Button } from "$lib/components/ui/button";
 import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 import { Flame, type Icon, Newspaper } from "@lucide/svelte";
 import LightSwitch from "./LightSwitch.svelte";
+import { authClient } from "$lib/auth-client";
+import { onMount } from "svelte";
 
 const supported: {
     icon: typeof Icon;
@@ -21,6 +23,23 @@ const supported: {
         href: "/trending",
     },
 ];
+
+let signedIn = $state(false);
+
+const getSessionData = async () => {
+    const {data, error} = await authClient.getSession();
+    if (error) {
+        signedIn = false;
+        return;
+    };
+    signedIn = !!data?.user;
+    return data;
+};
+
+const handleSignOut = async () => {
+    if ((await getSessionData())?.user) await authClient.signOut();
+    signedIn = false;
+}
 </script>
 
 <Sidebar.Root>
@@ -54,8 +73,17 @@ const supported: {
 	<Sidebar.Footer>
 		<div class="flex justify-end mb-1 gap-1">
 			<div>
-                <!-- <Button onclick={() => toast("Hello world")}>Show toast</Button> -->
-                 <Button href="/sign-in">Sign In</Button>
+                {#await getSessionData()}
+                    <Button href="/sign-in">Sign In</Button>
+                    {:then}
+                    {#if signedIn}
+                        <Button onclick={() => handleSignOut()}>Sign Out</Button>
+                    {:else}
+                        <Button href="/sign-in">Sign In</Button>
+                    {/if}
+                    {:catch}
+                        <Button href="/sign-in">Sign In</Button>
+                {/await}
             </div>
 			<div>
 				<LightSwitch />
