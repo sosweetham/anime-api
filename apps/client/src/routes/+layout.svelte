@@ -24,7 +24,7 @@ onMount(async () => {
     <div class="absolute">
         <AppSidebar />
     </div>
-	<div class="fixed bottom-4 left-5 z-50">
+	<div class="fixed bottom-3 left-5 z-50">
 		<Sidebar.Trigger />
 	</div>
     {@render children()}

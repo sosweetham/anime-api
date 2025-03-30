@@ -12,18 +12,18 @@ export const auth = betterAuth({
         // requireEmailVerification: true,
         autoSignIn: false,
     },
-    emailVerification: {
-        sendVerificationEmail: async ({ user, url }) => {
-            const html = `Click the link to verify your email: ${url}`;
+    // emailVerification: {
+    //     sendVerificationEmail: async ({ user, url }) => {
+    //         const html = `Click the link to verify your email: ${url}`;
 
-            await emailTransporter.sendMail({
-                from: "ham@mail.kodski.com",
-                to: user.email,
-                subject: "Test Email",
-                html,
-            });
-        },
-    },
+    //         await emailTransporter.sendMail({
+    //             from: "ham@mail.kodski.com",
+    //             to: user.email,
+    //             subject: "Test Email",
+    //             html,
+    //         });
+    //     },
+    // },
     trustedOrigins: ["http://localhost:5173"],
     secondaryStorage: {
         get: async (key: string) => {

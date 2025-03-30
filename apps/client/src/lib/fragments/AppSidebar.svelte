@@ -3,15 +3,10 @@ import { page } from "$app/state";
 import { Button } from "$lib/components/ui/button";
 import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 import {
-    Cpu,
     Flame,
     type Icon,
     Newspaper,
-    Paintbrush,
-    Piano,
-    Podcast,
 } from "@lucide/svelte";
-import { toast } from "svelte-sonner";
 import LightSwitch from "./LightSwitch.svelte";
 
 const supported: {
@@ -28,26 +23,6 @@ const supported: {
         icon: Flame,
         text: "trending",
         href: "/trending",
-    },
-    {
-        icon: Cpu,
-        text: "tech",
-        href: "/tech",
-    },
-    {
-        icon: Paintbrush,
-        text: "design",
-        href: "/design",
-    },
-    {
-        icon: Piano,
-        text: "music",
-        href: "/music",
-    },
-    {
-        icon: Podcast,
-        text: "podcast",
-        href: "/podcast",
     },
 ];
 </script>
@@ -81,9 +56,11 @@ const supported: {
 		</Sidebar.Group>
 	</Sidebar.Content>
 	<Sidebar.Footer>
-        <Button onclick={() => toast("Hello world")}>Show toast</Button>
-		<div class="flex justify-between">
-			<div></div>
+		<div class="flex justify-end mb-1 gap-1">
+			<div>
+                <!-- <Button onclick={() => toast("Hello world")}>Show toast</Button> -->
+                 <Button href="/sign-in">Sign In</Button>
+            </div>
 			<div>
 				<LightSwitch />
 			</div>
