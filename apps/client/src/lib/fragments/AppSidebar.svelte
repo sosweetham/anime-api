@@ -6,6 +6,7 @@ import { Flame, type Icon, Newspaper } from "@lucide/svelte";
 import LightSwitch from "./LightSwitch.svelte";
 import { authClient } from "$lib/auth-client";
 import { onMount } from "svelte";
+import NavUser from "./NavUser.svelte";
 
 const supported: {
     icon: typeof Icon;
@@ -27,11 +28,11 @@ const supported: {
 let signedIn = $state(false);
 
 const getSessionData = async () => {
-    const {data, error} = await authClient.getSession();
+    const { data, error } = await authClient.getSession();
     if (error) {
         signedIn = false;
         return;
-    };
+    }
     signedIn = !!data?.user;
     return data;
 };
@@ -39,7 +40,7 @@ const getSessionData = async () => {
 const handleSignOut = async () => {
     if ((await getSessionData())?.user) await authClient.signOut();
     signedIn = false;
-}
+};
 </script>
 
 <Sidebar.Root>
@@ -71,13 +72,20 @@ const handleSignOut = async () => {
 		</Sidebar.Group>
 	</Sidebar.Content>
 	<Sidebar.Footer>
-		<div class="flex justify-end mb-1 gap-1">
+		<div class="flex justify-end items-center mb-1 gap-1">
 			<div>
                 {#await getSessionData()}
                     <Button href="/sign-in">Sign In</Button>
-                    {:then}
-                    {#if signedIn}
-                        <Button onclick={() => handleSignOut()}>Sign Out</Button>
+                    {:then session}
+                    {#if signedIn && session?.user}
+                        <!-- <Button onclick={() => handleSignOut()}>Sign Out</Button> -->
+                        <NavUser user={
+                            {
+                                name: session?.user.name,
+                                email: session?.user.email,
+                                avatar: session?.user.image as string,
+                            }
+                        } {handleSignOut} />
                     {:else}
                         <Button href="/sign-in">Sign In</Button>
                     {/if}
@@ -88,6 +96,7 @@ const handleSignOut = async () => {
 			<div>
 				<LightSwitch />
 			</div>
+            <Sidebar.Trigger />
 		</div>
 	</Sidebar.Footer>
 </Sidebar.Root>

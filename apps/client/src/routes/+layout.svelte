@@ -6,6 +6,7 @@ import { Toaster } from "$lib/components/ui/sonner";
 import type { Theme } from "$lib/controllers/theme";
 import AppSidebar from "$lib/fragments/AppSidebar.svelte";
 let { children } = $props();
+let sidebarIsOpen = $state(false);
 onMount(async () => {
     const { runtime } = await import("$lib/controllers/runtime.svelte");
     window.addEventListener("setTheme", (event: Event) => {
@@ -20,12 +21,14 @@ onMount(async () => {
 </script>
 
 <Toaster />
-<Sidebar.Provider open={false} class="overflow-x-hidden">
+<Sidebar.Provider bind:open={sidebarIsOpen} class="overflow-x-hidden">
     <div class="absolute">
         <AppSidebar />
     </div>
-	<div class="fixed bottom-3 left-5 z-50">
+    {#if !sidebarIsOpen}
+	<div class="fixed bottom-[22px] left-[18px] z-50">
 		<Sidebar.Trigger />
 	</div>
+    {/if}
     {@render children()}
 </Sidebar.Provider>
