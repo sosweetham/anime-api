@@ -16,5 +16,8 @@
     "extends": ["../../biome.json"],
     "linter": {
         "ignore": ["src/lib/components/ui"]
+    },
+    "organizeImports": {
+        "include": ["src/**/*.ts"]
     }
 }
