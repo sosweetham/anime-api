@@ -19,14 +19,13 @@ const DEFAULT_CONFIG: DbConfig = {
 
 // Define the function to get the database instance
 export async function getDb(
-    config: DbConfig = DEFAULT_CONFIG,
+    config: DbConfig = DEFAULT_CONFIG
 ): Promise<Surreal> {
     const db = new Surreal();
 
     let shouldRetry = 1;
-
+    console.log("Connecting to SurrealDB...");
     while (shouldRetry) {
-        // delay of 5 seconds
         try {
             if (shouldRetry !== 1) {
                 console.log("Retrying connection to SurrealDB in 5 seconds...");
@@ -34,8 +33,6 @@ export async function getDb(
             }
             await db.connect(config.url, {
                 auth: {
-                    database: config.database,
-                    namespace: config.namespace,
                     username: config.username,
                     password: config.password,
                 },
@@ -48,11 +45,15 @@ export async function getDb(
         } catch (err) {
             console.error(
                 "Failed to connect to SurrealDB:",
-                err instanceof Error ? err.message : String(err),
+                err instanceof Error ? err.message : String(err)
             );
             await db.close();
         }
+        if (shouldRetry) {
+            shouldRetry++;
+        }
     }
+    console.log("Connected to SurrealDB!");
     return db;
 }
 

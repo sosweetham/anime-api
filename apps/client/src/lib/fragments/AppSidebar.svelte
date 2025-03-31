@@ -5,8 +5,8 @@ import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 import { Flame, type Icon, Newspaper } from "@lucide/svelte";
 import LightSwitch from "./LightSwitch.svelte";
 import { authClient } from "$lib/auth-client";
-import { onMount } from "svelte";
 import NavUser from "./NavUser.svelte";
+import { runtime } from "$lib/controllers/runtime.svelte";
 
 const supported: {
     icon: typeof Icon;
@@ -25,21 +25,19 @@ const supported: {
     },
 ];
 
-let signedIn = $state(false);
-
 const getSessionData = async () => {
     const { data, error } = await authClient.getSession();
     if (error) {
-        signedIn = false;
+        runtime.signedIn = false;
         return;
     }
-    signedIn = !!data?.user;
+    runtime.signedIn = !!data?.user;
     return data;
 };
 
 const handleSignOut = async () => {
     if ((await getSessionData())?.user) await authClient.signOut();
-    signedIn = false;
+    runtime.signedIn = false;
 };
 </script>
 
@@ -77,7 +75,7 @@ const handleSignOut = async () => {
                 {#await getSessionData()}
                     <Button href="/sign-in">Sign In</Button>
                     {:then session}
-                    {#if signedIn && session?.user}
+                    {#if runtime.signedIn && session?.user}
                         <!-- <Button onclick={() => handleSignOut()}>Sign Out</Button> -->
                         <NavUser user={
                             {

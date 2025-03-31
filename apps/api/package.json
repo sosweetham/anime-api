@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "bun src/scripts/cleanup.ts && bun --watch src/index.ts",
+        "dev": "bun --watch src/index.ts",
         "format": "npx @biomejs/biome format --write ./src",
         "check-format": "npx @biomejs/biome format ./src",
         "lint": "npx @biomejs/biome lint --write ./src",

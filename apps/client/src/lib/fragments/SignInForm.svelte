@@ -8,26 +8,26 @@ import {
     setError,
 } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { emailSignInSchema } from "$lib/schemas";
 import { Input } from "$lib/components/ui/input";
 import { toast } from "svelte-sonner";
 import { authClient } from "$lib/auth-client";
 import { Checkbox } from "$lib/components/ui/checkbox";
+import { goto } from "$app/navigation";
+import { usernameSignInSchema } from "$lib/schemas";
 
 const form = superForm(
-    defaults({ rememberMe: false }, zod(emailSignInSchema)),
+    defaults({ rememberMe: false }, zod(usernameSignInSchema)),
     {
         SPA: true,
-        validators: zod(emailSignInSchema),
+        validators: zod(usernameSignInSchema),
         onUpdate: async ({ form }) => {
             if (form.valid) {
                 console.log(form);
                 setMessage(form, "Form is Valid");
                 const signInRes = await authClient.signIn.email({
-                    email: form.data.email,
+                    email: form.data.username,
                     password: form.data.password,
                     rememberMe: form.data.rememberMe,
-                    callbackURL: "/",
                 });
                 if (signInRes.error) {
                     setError(
@@ -42,8 +42,10 @@ const form = superForm(
                 if (signInRes.data) {
                     setMessage(form, "Login Successful");
                     toast.success(
-                        `Successfully logged in as ${signInRes.data.user.email}`,
+                        `Successfully logged in as ${signInRes.data.user.email}, redirecting...`,
                     );
+                    await new Promise((resolve) => setTimeout(resolve, 500));
+                    await goto("/"); // Not using the authClient to redirect because it hard refreshes the page
                     return;
                 }
                 return;
@@ -58,18 +60,18 @@ const { form: formData, enhance } = form;
 
 <Card.Root class="mx-auto max-w-sm">
 	<Card.Header>
-		<Card.Title class="text-2xl">Login</Card.Title>
-		<Card.Description>Enter your details below to login to your account</Card.Description>
+		<Card.Title class="text-2xl">Sign In</Card.Title>
+		<Card.Description>Enter your details below to sign in to your Anime-API account.</Card.Description>
 	</Card.Header>
 	<Card.Content>
         <form method="post" use:enhance class="grid gap-4">
-            <Form.Field {form} name="email" >
+            <Form.Field {form} name="username" >
                 <Form.Control let:attrs>
-                    <Form.Label for="email">Email</Form.Label>
-                    <Input {...attrs} bind:value={$formData.email} />
+                    <Form.Label for="username">Username</Form.Label>
+                    <Input {...attrs} bind:value={$formData.username} />
                 </Form.Control>
                 <Form.Description>
-                    This is the email you used to register.
+                    This is the username you used to register.
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
@@ -93,9 +95,6 @@ const { form: formData, enhance } = form;
                 <div class="space-y-1 leading-none">
                     <Form.Label>Remember Me</Form.Label>
                     <Form.Description>
-                    <!-- You can manage your mobile notifications in the <a
-                        href="/examples/forms">mobile settings</a
-                    > page. -->
                     This will keep you logged in for a while.
                     </Form.Description>
                 </div>
@@ -105,4 +104,12 @@ const { form: formData, enhance } = form;
             <Form.Button>Submit</Form.Button>
         </form>
     </Card.Content>
+    <Card.Footer class="flex flex-col gap-4 items-start">
+        <Card.Description>
+            Don't have an account? <a href="/sign-up">Sign Up</a>
+        </Card.Description>
+        <Card.Description>
+            <a href="/forgot-password">Forgot Password?</a>
+        </Card.Description>
+    </Card.Footer>
 </Card.Root>

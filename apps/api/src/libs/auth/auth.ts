@@ -1,5 +1,6 @@
 import { TimeUnit } from "@valkey/valkey-glide";
 import { betterAuth } from "better-auth";
+import { captcha, username } from "better-auth/plugins";
 import { surrealAdapter } from "surreal-better-auth";
 import { db } from "../../stores/db";
 import { kvsClient } from "../../stores/kvs";
@@ -12,18 +13,18 @@ export const auth = betterAuth({
         // requireEmailVerification: true,
         autoSignIn: false,
     },
-    // emailVerification: {
-    //     sendVerificationEmail: async ({ user, url }) => {
-    //         const html = `Click the link to verify your email: ${url}`;
+    emailVerification: {
+        sendVerificationEmail: async ({ user, url }) => {
+            const html = `Click the link to verify your email: ${url}`;
 
-    //         await emailTransporter.sendMail({
-    //             from: "ham@mail.kodski.com",
-    //             to: user.email,
-    //             subject: "Test Email",
-    //             html,
-    //         });
-    //     },
-    // },
+            await emailTransporter.sendMail({
+                from: "ham@mail.kodski.com",
+                to: user.email,
+                subject: "Test Email",
+                html,
+            });
+        },
+    },
     trustedOrigins: ["http://localhost:5173"],
     secondaryStorage: {
         get: async (key: string) => {
@@ -43,4 +44,30 @@ export const auth = betterAuth({
             await kvsClient.del([key]);
         },
     },
+    basePath: "/api/v1/auth",
+    user: {
+        deleteUser: {
+            enabled: true,
+            sendDeleteAccountVerification: async ({ user, url }) => {
+                const html = `Click the link to verify your email: ${url}`;
+
+                await emailTransporter.sendMail({
+                    from: "ham@mail.kodski.com",
+                    to: user.email,
+                    subject: "Test Email",
+                    html,
+                });
+            },
+        },
+    },
+    plugins:
+        Bun.env.NODE_ENV == "dev"
+            ? [username()]
+            : [
+                  captcha({
+                      provider: "cloudflare-turnstile",
+                      secretKey: Bun.env.TURNSTILE_SECRETKEY!,
+                  }),
+                  username(),
+              ],
 });
