@@ -37,8 +37,8 @@ const form = superForm(
                         return;
                     }
                 setMessage(form, "Form is Valid");
-                const signInRes = await authClient.signIn.email({
-                    email: form.data.username,
+                const signInRes = await authClient.signIn.username({
+                    username: form.data.username,
                     password: form.data.password,
                     rememberMe: form.data.rememberMe,
                     fetchOptions: {
@@ -104,7 +104,7 @@ const { form: formData, enhance } = form;
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="dev"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} />
+            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="dev"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} theme={runtime.themeManager.computedTheme} />
             <Form.Field
                 {form}
                 name="rememberMe"

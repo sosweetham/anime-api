@@ -15,6 +15,7 @@
     import { usernameSignUpSchema } from "$lib/schemas";
     import { authClient } from "$lib/auth-client";
     import { goto } from "$app/navigation";
+    import { runtime } from "$lib/controllers/runtime.svelte";
 
     let turnstileToken: string | null = null;
 
@@ -138,7 +139,7 @@
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="dev"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} />
+            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="dev"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} theme={runtime.themeManager.computedTheme} />
             <Form.Button>Submit</Form.Button>
         </form>
     </Card.Content>

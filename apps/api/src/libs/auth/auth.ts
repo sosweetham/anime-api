@@ -44,6 +44,19 @@ export const auth = betterAuth({
                 html,
             });
         },
+        resetPasswordTokenExpiresIn: 3600, // 1 hour
+        password: {
+            hash: async (password: string) => {
+                return await Bun.password.hash(password, {
+                    algorithm: "argon2id",
+                    memoryCost: 4,
+                    timeCost: 3,
+                });
+            },
+            verify: async (data: { hash: string; password: string }) => {
+                return await Bun.password.verify(data.password, data.hash);
+            },
+        },
     },
     emailVerification: {
         sendVerificationEmail: async ({ user, url }) => {
@@ -68,8 +81,6 @@ export const auth = betterAuth({
                 await kvsClient.set(key, value, {
                     expiry: { type: TimeUnit.Seconds, count: ttl },
                 });
-            // or for ioredis:
-            // if (ttl) await redis.set(key, value, 'EX', ttl)
             else await kvsClient.set(key, value);
         },
         delete: async (key) => {

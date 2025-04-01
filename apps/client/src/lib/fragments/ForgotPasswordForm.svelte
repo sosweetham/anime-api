@@ -14,6 +14,7 @@ import { authClient } from "$lib/auth-client";
 import { Turnstile } from "svelte-turnstile";
     import { forgotPasswordSchema } from "$lib/schemas/forgot-password-schema";
     import { PUBLIC_NODE_ENV, PUBLIC_TURNSTILE_SITEKEY, PUBLIC_CLIENT_HOST } from "$env/static/public";
+    import { runtime } from "$lib/controllers/runtime.svelte";
 
 let turnstileToken: string | null = null;
 
@@ -90,7 +91,7 @@ const { form: formData, enhance } = form;
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="dev"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} />
+            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="dev"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} theme={runtime.themeManager.computedTheme} />
             <Form.Button disabled={submitIsDisabled}>Submit</Form.Button>
         </form>
     </Card.Content>
