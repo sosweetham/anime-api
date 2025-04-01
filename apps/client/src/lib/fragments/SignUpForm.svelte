@@ -30,7 +30,6 @@
             validators: zod(usernameSignUpSchema),
             onUpdate: async ({ form }) => {
                 if (form.valid) {
-                    setMessage(form, "Form is Valid");
                     if (form.data.password !== form.data.confirmPassword) {
                         setError(form, "Passwords do not match");
                         toast.error("Passwords do not match");
@@ -41,6 +40,7 @@
                         toast.error("Please perform the captcha!");
                         return;
                     }
+                    setMessage(form, "Form is Valid");
                     const signUpRes = await authClient.signUp.email({
                         email: form.data.email,
                         password: form.data.password,

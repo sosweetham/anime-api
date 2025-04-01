@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { usernameSignInSchema } from "./email-sign-in-schema";
+import { usernameSignInSchema } from "./username-sign-in-schema";
 
 export const usernameSignUpSchema = usernameSignInSchema.extend({
     email: z

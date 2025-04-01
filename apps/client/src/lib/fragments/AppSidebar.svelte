@@ -72,11 +72,11 @@ const handleSignOut = async () => {
 	<Sidebar.Footer>
 		<div class="flex justify-end items-center mb-1 gap-1">
 			<div>
+                {#key runtime.signedIn}
                 {#await getSessionData()}
                     <Button href="/sign-in">Sign In</Button>
                     {:then session}
                     {#if runtime.signedIn && session?.user}
-                        <!-- <Button onclick={() => handleSignOut()}>Sign Out</Button> -->
                         <NavUser user={
                             {
                                 name: session?.user.name,
@@ -90,6 +90,7 @@ const handleSignOut = async () => {
                     {:catch}
                         <Button href="/sign-in">Sign In</Button>
                 {/await}
+                {/key}
             </div>
 			<div>
 				<LightSwitch />
