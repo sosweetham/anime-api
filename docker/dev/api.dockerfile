@@ -17,7 +17,7 @@ WORKDIR /app
 RUN bun install --frozen-lockfile
 
 # API runtime stage
-FROM base AS api
+FROM base AS dev-api
 COPY --from=build /app /app
 WORKDIR /app/apps/api
 EXPOSE 3000

@@ -16,6 +16,8 @@ services:
         container_name: anime-api-seaweedfs
         hostname: anime-api-seaweedfs
         image: chrislusf/seaweedfs:3.85
+        depends_on:
+            - anime-api-database
         restart: unless-stopped
         volumes:
             - ./seaweedfs/data:/data
@@ -30,6 +32,8 @@ services:
         container_name: anime-api-kvs
         hostname: anime-api-kvs
         image: valkey/valkey:8.0.2-alpine
+        depends_on:
+            - anime-api-database
         restart: unless-stopped
         ports:
             - "6379:6379"
@@ -42,6 +46,7 @@ services:
         build:
             context: .
             dockerfile: docker/dev/api.dockerfile
+            target: dev-api
         restart: unless-stopped
         env_file:
             - .env

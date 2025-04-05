@@ -96,7 +96,7 @@ const { form: formData, enhance } = form;
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="dev"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} theme={runtime.themeManager.computedTheme} />
+            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="development"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} theme={runtime.themeManager.computedTheme} />
             <Form.Button disabled={submitIsDisabled}>Submit</Form.Button>
         </form>
     </Card.Content>
