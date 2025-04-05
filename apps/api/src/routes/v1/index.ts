@@ -1,6 +1,6 @@
 import Elysia from "elysia";
-import { email } from "./email";
 import betterAuthView from "../../libs/auth/auth-view";
+import { email } from "./email";
 
 export const v1 = new Elysia({
     prefix: "/v1",

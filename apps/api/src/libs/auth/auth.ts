@@ -9,12 +9,14 @@ import { emailTransporter } from "../email";
 export const auth = betterAuth({
     database: surrealAdapter(db),
     plugins:
-        Bun.env.NODE_ENV == "dev"
+        Bun.env.NODE_ENV === "dev"
             ? [username()]
             : [
                   captcha({
                       provider: "cloudflare-turnstile",
-                      secretKey: Bun.env.TURNSTILE_SECRETKEY!,
+                      secretKey:
+                          Bun.env.TURNSTILE_SECRETKEY ||
+                          "3x00000000000000000000FF",
                   }),
                   username(),
               ],

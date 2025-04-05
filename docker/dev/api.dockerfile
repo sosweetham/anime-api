@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy monorepo files first for efficient caching
 COPY package.json bun.lock tsconfig.json /app/
 COPY apps/api/package.json /app/apps/api/
-COPY packages/*/package.json /app/packages/
+COPY packages /app/packages/
 
 # Install dependencies for the entire monorepo
 RUN bun install

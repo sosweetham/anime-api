@@ -16,13 +16,15 @@ import { goto } from "$app/navigation";
 import { usernameSignInSchema } from "$lib/schemas";
 import { Turnstile } from "svelte-turnstile";
 import { PUBLIC_NODE_ENV, PUBLIC_TURNSTILE_SITEKEY } from "$env/static/public";
-    import { runtime } from "$lib/controllers/runtime.svelte";
+import { runtime } from "$lib/controllers/runtime.svelte";
 
 let turnstileToken: string | null = null;
 
-const getTurnstileToken = (e: CustomEvent<{ token: string; preClearanceObtained: boolean; }>) => {
+const getTurnstileToken = (
+    e: CustomEvent<{ token: string; preClearanceObtained: boolean }>,
+) => {
     turnstileToken = e.detail.token;
-}
+};
 
 const form = superForm(
     defaults({ rememberMe: false }, zod(usernameSignInSchema)),
@@ -32,10 +34,10 @@ const form = superForm(
         onUpdate: async ({ form }) => {
             if (form.valid) {
                 if (!turnstileToken) {
-                        setError(form, "Turnstile token is missing");
-                        toast.error("Please perform the captcha!");
-                        return;
-                    }
+                    setError(form, "Turnstile token is missing");
+                    toast.error("Please perform the captcha!");
+                    return;
+                }
                 setMessage(form, "Form is Valid");
                 const signInRes = await authClient.signIn.username({
                     username: form.data.username,
@@ -43,9 +45,9 @@ const form = superForm(
                     rememberMe: form.data.rememberMe,
                     fetchOptions: {
                         headers: {
-                            "x-captcha-response": turnstileToken
-                        }
-                    }
+                            "x-captcha-response": turnstileToken,
+                        },
+                    },
                 });
                 if (signInRes.error) {
                     setError(
@@ -63,7 +65,7 @@ const form = superForm(
                         `Successfully logged in as ${signInRes.data.user.email}, redirecting...`,
                     );
                     await new Promise((resolve) => setTimeout(resolve, 500));
-                    runtime.signedIn=true;
+                    runtime.signedIn = true;
                     await goto("/"); // Not using the authClient to redirect because it hard refreshes the page
                     return;
                 }

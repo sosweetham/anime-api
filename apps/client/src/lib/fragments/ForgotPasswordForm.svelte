@@ -12,64 +12,69 @@ import { Input } from "$lib/components/ui/input";
 import { toast } from "svelte-sonner";
 import { authClient } from "$lib/auth-client";
 import { Turnstile } from "svelte-turnstile";
-    import { forgotPasswordSchema } from "$lib/schemas/forgot-password-schema";
-    import { PUBLIC_NODE_ENV, PUBLIC_TURNSTILE_SITEKEY, PUBLIC_CLIENT_HOST } from "$env/static/public";
-    import { runtime } from "$lib/controllers/runtime.svelte";
+import { forgotPasswordSchema } from "$lib/schemas/forgot-password-schema";
+import {
+    PUBLIC_NODE_ENV,
+    PUBLIC_TURNSTILE_SITEKEY,
+    PUBLIC_CLIENT_HOST,
+} from "$env/static/public";
+import { runtime } from "$lib/controllers/runtime.svelte";
 
 let turnstileToken: string | null = null;
 
-const getTurnstileToken = (e: CustomEvent<{ token: string; preClearanceObtained: boolean; }>) => {
+const getTurnstileToken = (
+    e: CustomEvent<{ token: string; preClearanceObtained: boolean }>,
+) => {
     turnstileToken = e.detail.token;
-}
+};
 
 let submitIsDisabled = $state(false);
 
-const form = superForm(
-    defaults(zod(forgotPasswordSchema)),
-    {
-        SPA: true,
-        validators: zod(forgotPasswordSchema),
-        onUpdate: async ({ form }) => {
-            if (form.valid) {
-                submitIsDisabled = true;
-                if (!turnstileToken) {
-                        setError(form, "Turnstile token is missing");
-                        toast.error("Please perform the captcha!");
-                        return;
-                    }
-                setMessage(form, "Form is Valid");
-                const forgotPasswordRes = await authClient.forgetPassword({
-                    email: form.data.email,
-                    redirectTo: `${PUBLIC_CLIENT_HOST}/reset-password`,
-                    fetchOptions: {
-                        headers: {
-                            "x-captcha-response": turnstileToken
-                        }
-                    }
-                })
-                if (forgotPasswordRes.error) {
-                    setError(
-                        form,
-                        forgotPasswordRes.error.message || forgotPasswordRes.error.statusText,
-                    );
-                    toast.error(
-                        forgotPasswordRes.error.message || forgotPasswordRes.error.statusText,
-                    );
-                    submitIsDisabled=false
-                    return;
-                }
-                if (forgotPasswordRes.data) {
-                    setMessage(form, "Check your email for a reset link");
-                    toast.success("Check your email for a reset link");
-                    submitIsDisabled=false
-                    return;
-                }
-                return
+const form = superForm(defaults(zod(forgotPasswordSchema)), {
+    SPA: true,
+    validators: zod(forgotPasswordSchema),
+    onUpdate: async ({ form }) => {
+        if (form.valid) {
+            submitIsDisabled = true;
+            if (!turnstileToken) {
+                setError(form, "Turnstile token is missing");
+                toast.error("Please perform the captcha!");
+                return;
             }
-            setError(form, "Form is not valid");
+            setMessage(form, "Form is Valid");
+            const forgotPasswordRes = await authClient.forgetPassword({
+                email: form.data.email,
+                redirectTo: `${PUBLIC_CLIENT_HOST}/reset-password`,
+                fetchOptions: {
+                    headers: {
+                        "x-captcha-response": turnstileToken,
+                    },
+                },
+            });
+            if (forgotPasswordRes.error) {
+                setError(
+                    form,
+                    forgotPasswordRes.error.message ||
+                        forgotPasswordRes.error.statusText,
+                );
+                toast.error(
+                    forgotPasswordRes.error.message ||
+                        forgotPasswordRes.error.statusText,
+                );
+                submitIsDisabled = false;
+                return;
+            }
+            if (forgotPasswordRes.data) {
+                setMessage(form, "Check your email for a reset link");
+                toast.success("Check your email for a reset link");
+                submitIsDisabled = false;
+                return;
+            }
+            return;
         }
-    }
-)
+        setError(form, "Form is not valid");
+    },
+});
 
 const { form: formData, enhance } = form;
 </script>
