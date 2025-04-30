@@ -6,13 +6,14 @@
 // import OTPEmail from './emails/otp'
 
 import nodemailer from "nodemailer";
+import { animeAPIConfig } from "../conf";
 
 export const emailTransporter = nodemailer.createTransport({
-    host: Bun.env.SMTP_HOST,
-    port: Number.parseInt(Bun.env.SMTP_PORT || "465"),
+    host: animeAPIConfig.smtpConfig.smtpHost,
+    port: animeAPIConfig.smtpConfig.smtpPort,
     auth: {
-        user: Bun.env.SMTP_USER,
-        pass: Bun.env.SMTP_PASS,
+        user: animeAPIConfig.smtpConfig.smtpUser,
+        pass: animeAPIConfig.smtpConfig.smtpPass,
     },
 });
 

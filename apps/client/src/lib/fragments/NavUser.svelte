@@ -3,11 +3,12 @@ import * as Avatar from "$lib/components/ui/avatar";
 import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
 import * as Sidebar from "$lib/components/ui/sidebar";
 import { useSidebar } from "$lib/components/ui/sidebar";
-import BadgeCheck from "@lucide/svelte/icons/badge-check";
-import Bell from "@lucide/svelte/icons/bell";
 import ChevronsUpDown from "@lucide/svelte/icons/chevrons-up-down";
-import CreditCard from "@lucide/svelte/icons/credit-card";
 import LogOut from "@lucide/svelte/icons/log-out";
+import Settings from "@lucide/svelte/icons/settings";
+// import BadgeCheck from "@lucide/svelte/icons/badge-check";
+// import Bell from "@lucide/svelte/icons/bell";
+// import CreditCard from "@lucide/svelte/icons/credit-card";
 // import Sparkles from "@lucide/svelte/icons/sparkles";
 import Github from "@lucide/svelte/icons/github";
 
@@ -72,18 +73,20 @@ const sidebar = useSidebar();
 				</DropdownMenu.Group>
 				<DropdownMenu.Separator />
 				<DropdownMenu.Group>
-					<DropdownMenu.Item>
-						<BadgeCheck />
-						Account
-					</DropdownMenu.Item>
-					<DropdownMenu.Item>
+                    <a href="settings">
+                        <DropdownMenu.Item>
+                            <Settings />
+                            Settings
+                        </DropdownMenu.Item>
+                    </a>
+					<!-- <DropdownMenu.Item>
 						<CreditCard />
 						Billing
 					</DropdownMenu.Item>
 					<DropdownMenu.Item>
 						<Bell />
 						Notifications
-					</DropdownMenu.Item>
+					</DropdownMenu.Item> -->
 				</DropdownMenu.Group>
 				<DropdownMenu.Separator />
 				<DropdownMenu.Item onclick={() => handleSignOut()}>

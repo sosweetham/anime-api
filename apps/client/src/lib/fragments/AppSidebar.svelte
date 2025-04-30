@@ -4,7 +4,7 @@ import { Button } from "$lib/components/ui/button";
 import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 import { Flame, type Icon, Newspaper } from "@lucide/svelte";
 import LightSwitch from "./LightSwitch.svelte";
-import { authClient } from "$lib/auth-client";
+import { authClient, getSessionData } from "$lib/auth-client";
 import NavUser from "./NavUser.svelte";
 import { runtime } from "$lib/controllers/runtime.svelte";
 
@@ -24,16 +24,6 @@ const supported: {
         href: "/trending",
     },
 ];
-
-const getSessionData = async () => {
-    const { data, error } = await authClient.getSession();
-    if (error) {
-        runtime.signedIn = false;
-        return;
-    }
-    runtime.signedIn = !!data?.user;
-    return data;
-};
 
 const handleSignOut = async () => {
     if ((await getSessionData())?.user) await authClient.signOut();

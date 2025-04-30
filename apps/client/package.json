@@ -17,6 +17,9 @@
         "lucide-svelte": "^0.485.0",
         "mdsvex": "^0.12.3",
         "mode-watcher": "^0.5.1",
+        "prettier": "^3.1.0",
+        "prettier-plugin-svelte": "^3.1.0",
+        "prettier-plugin-tailwindcss": "^0.6.11",
         "svelte": "^5.0.0",
         "svelte-check": "^4.0.0",
         "svelte-sonner": "^0.3.28",
@@ -49,6 +52,23 @@
     },
     "type": "module",
     "dependencies": {
-        "better-auth": "^1.2.6-beta.4"
+        "better-auth": "^1.2.6-beta.4",
+        "runed": "^0.25.0"
+    },
+    "prettier": {
+        "svelteSortOrder": "options-styles-scripts-markup",
+        "svelteStrictMode": true,
+        "svelteBracketNewLine": false,
+        "svelteAllowShorthand": false,
+        "svelteIndentScriptAndStyle": false,
+        "overrides": [
+            {
+                "files": "*.svelte",
+                "options": {
+                    "parser": "svelte"
+                }
+            }
+        ],
+        "plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"]
     }
 }

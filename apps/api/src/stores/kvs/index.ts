@@ -2,12 +2,13 @@ import {
     type BaseClientConfiguration,
     GlideClient,
 } from "@valkey/valkey-glide";
+import { animeAPIConfig } from "../../libs/conf";
 
 const conf: BaseClientConfiguration = {
     addresses: [
         {
-            host: Bun.env.VALKEY_HOST || "localhost",
-            port: Number.parseInt(Bun.env.VALKEY_PORT || "6379"),
+            host: animeAPIConfig.kvsConfig.kvsHost,
+            port: animeAPIConfig.kvsConfig.kvsPort,
         },
     ],
     clientName: "anime-api-api",

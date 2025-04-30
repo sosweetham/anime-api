@@ -1,25 +1,12 @@
 import Surreal from "surrealdb";
-
-interface DbConfig {
-    url: string;
-    namespace: string;
-    database: string;
-    username: string;
-    password: string;
-}
+import { animeAPIConfig, type DbConfig } from "../../libs/conf";
 
 // Define the default database configuration
-const DEFAULT_CONFIG: DbConfig = {
-    url: Bun.env.SURREAL_URL || "http://localhost:8080/rpc",
-    namespace: Bun.env.SURREAL_NS || "default",
-    database: Bun.env.SURREAL_DB || "default",
-    username: Bun.env.SURREAL_USER || "root",
-    password: Bun.env.SURREAL_PASS || "root",
-};
+const DEFAULT_CONFIG: DbConfig = animeAPIConfig.dbConfig;
 
 // Define the function to get the database instance
 export async function getDb(
-    config: DbConfig = DEFAULT_CONFIG,
+    config: DbConfig = DEFAULT_CONFIG
 ): Promise<Surreal> {
     const db = new Surreal();
 
@@ -31,21 +18,21 @@ export async function getDb(
                 console.log("Retrying connection to SurrealDB in 5 seconds...");
                 await new Promise((resolve) => setTimeout(resolve, 5000));
             }
-            await db.connect(config.url, {
+            await db.connect(config.dbUrl, {
                 auth: {
-                    username: config.username,
-                    password: config.password,
+                    username: config.dbUsername,
+                    password: config.dbPassword,
                 },
             });
             await db.use({
-                database: config.database,
-                namespace: config.namespace,
+                database: config.dbDatabase,
+                namespace: config.dbNamespace,
             });
             shouldRetry = 0;
         } catch (err) {
             console.error(
                 "Failed to connect to SurrealDB:",
-                err instanceof Error ? err.message : String(err),
+                err instanceof Error ? err.message : String(err)
             );
             await db.close();
         }

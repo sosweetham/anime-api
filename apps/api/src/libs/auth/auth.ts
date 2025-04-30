@@ -5,20 +5,26 @@ import { surrealAdapter } from "surreal-better-auth";
 import { db } from "../../stores/db";
 import { kvsClient } from "../../stores/kvs";
 import { emailTransporter } from "../email";
+import { animeAPIConfig } from "../conf";
 
+console.log("NODE_ENV", Bun.env.NODE_ENV);
 export const auth = betterAuth({
     database: surrealAdapter(db),
     plugins: [
         username(),
-        captcha({
-            provider: "cloudflare-turnstile",
-            secretKey:
-                Bun.env.TURNSTILE_SECRETKEY || "3x00000000000000000000FF",
-        }),
+        ...(animeAPIConfig.nodeConfig.nodeEnv === "development"
+            ? []
+            : [
+                  captcha({
+                      provider: "cloudflare-turnstile",
+                      secretKey:
+                          animeAPIConfig.cloudflareConfig.turnstileSecretKey,
+                  }),
+              ]),
     ],
     emailAndPassword: {
         enabled: true,
-        // requireEmailVerification: true,
+        requireEmailVerification: true,
         autoSignIn: false,
         sendResetPassword: async ({ user, url }) => {
             const extendedUser: typeof user & {
@@ -58,7 +64,12 @@ export const auth = betterAuth({
     },
     emailVerification: {
         sendVerificationEmail: async ({ user, url }) => {
-            const html = `Click the link to verify your email: ${url}`;
+            const sendUrl = new URL(url);
+            sendUrl.searchParams.set(
+                "callbackURL",
+                `${animeAPIConfig.clientConfig.clientHost}/verified`
+            );
+            const html = `Click the link to verify your email: ${sendUrl.toString()}`;
 
             await emailTransporter.sendMail({
                 from: "ham@mail.kodski.com",
@@ -68,7 +79,7 @@ export const auth = betterAuth({
             });
         },
     },
-    trustedOrigins: ["http://localhost:5173"],
+    trustedOrigins: [animeAPIConfig.clientConfig.clientHost],
     secondaryStorage: {
         get: async (key: string) => {
             const value = (await kvsClient.get(key))?.toString();
