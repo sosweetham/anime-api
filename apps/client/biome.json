@@ -1,18 +1,5 @@
 {
     "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-    "overrides": [
-        {
-            "include": ["*.svelte", "*.astro", "*.vue"],
-            "linter": {
-                "rules": {
-                    "style": {
-                        "useConst": "off",
-                        "useImportType": "off"
-                    }
-                }
-            }
-        }
-    ],
     "extends": ["../../biome.json"],
     "linter": {
         "ignore": ["src/lib/components/ui"]

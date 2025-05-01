@@ -1,22 +1,22 @@
 <script lang="ts">
+import { goto } from "$app/navigation";
+import { PUBLIC_NODE_ENV, PUBLIC_TURNSTILE_SITEKEY } from "$env/static/public";
+import { authClient } from "$lib/auth-client";
 import * as Card from "$lib/components/ui/card";
+import { Checkbox } from "$lib/components/ui/checkbox";
 import * as Form from "$lib/components/ui/form";
+import { Input } from "$lib/components/ui/input";
+import { runtime } from "$lib/controllers/runtime.svelte";
+import { usernameSignInSchema } from "$lib/schemas";
+import { toast } from "svelte-sonner";
+import { Turnstile } from "svelte-turnstile";
 import {
-    superForm,
     defaults,
-    setMessage,
     setError,
+    setMessage,
+    superForm,
 } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
-import { Input } from "$lib/components/ui/input";
-import { toast } from "svelte-sonner";
-import { authClient } from "$lib/auth-client";
-import { Checkbox } from "$lib/components/ui/checkbox";
-import { goto } from "$app/navigation";
-import { usernameSignInSchema } from "$lib/schemas";
-import { Turnstile } from "svelte-turnstile";
-import { PUBLIC_NODE_ENV, PUBLIC_TURNSTILE_SITEKEY } from "$env/static/public";
-import { runtime } from "$lib/controllers/runtime.svelte";
 
 let turnstileToken: string | null = null;
 
@@ -83,8 +83,7 @@ const { form: formData, enhance } = form;
     <Card.Header>
         <Card.Title class="text-2xl">Sign In</Card.Title>
         <Card.Description
-            >Enter your details below to sign in to your Anime-API account.</Card.Description
-        >
+            >Enter your details below to sign in to your Anime-API account.</Card.Description>
     </Card.Header>
     <Card.Content>
         <form method="post" use:enhance class="grid gap-4">
@@ -104,8 +103,7 @@ const { form: formData, enhance } = form;
                     <Input
                         type="password"
                         {...attrs}
-                        bind:value={$formData.password}
-                    />
+                        bind:value={$formData.password} />
                 </Form.Control>
                 <Form.Description>
                     The password you used to register.
@@ -117,13 +115,11 @@ const { form: formData, enhance } = form;
                 siteKey={PUBLIC_NODE_ENV === "development"
                     ? "3x00000000000000000000FF"
                     : PUBLIC_TURNSTILE_SITEKEY}
-                theme={runtime.themeManager.computedTheme}
-            />
+                theme={runtime.themeManager.computedTheme} />
             <Form.Field
                 form={form}
                 name="rememberMe"
-                class="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
-            >
+                class="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                 <Form.Control let:attrs>
                     <Checkbox {...attrs} bind:checked={$formData.rememberMe} />
                     <div class="space-y-1 leading-none">
@@ -135,8 +131,7 @@ const { form: formData, enhance } = form;
                     <input
                         name={attrs.name}
                         value={$formData.rememberMe}
-                        hidden
-                    />
+                        hidden />
                 </Form.Control>
             </Form.Field>
             <Form.Button>Submit</Form.Button>
