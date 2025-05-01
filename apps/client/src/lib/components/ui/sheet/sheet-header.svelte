@@ -12,9 +12,9 @@ let {
 </script>
 
 <div
-	bind:this={ref}
-	class={cn("flex flex-col space-y-2 text-center sm:text-left", className)}
-	{...restProps}
+    bind:this={ref}
+    class={cn("flex flex-col space-y-2 text-center sm:text-left", className)}
+    {...restProps}
 >
-	{@render children?.()}
+    {@render children?.()}
 </div>

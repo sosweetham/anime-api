@@ -12,7 +12,7 @@ export class NodeConfig {
             nodeEnv !== "test"
         ) {
             throw new RangeError(
-                "Node environment must be development, production or test"
+                "Node environment must be development, production or test",
             );
         }
         this.nodeEnv = nodeEnv as "development" | "production" | "test";

@@ -84,68 +84,89 @@ const form = superForm(
 const { form: formData, enhance } = form;
 </script>
 
-<Card.Root class="mx-auto max-w-sm max-h-[calc(100vh-5rem)] overflow-auto">
+<Card.Root class="mx-auto max-h-[calc(100vh-5rem)] max-w-sm overflow-auto">
     <Card.Header>
         <Card.Title class="text-2xl">Sign Up</Card.Title>
-        <Card.Description>Enter your details below to sign up for an Anime-API account.</Card.Description>
+        <Card.Description
+            >Enter your details below to sign up for an Anime-API account.</Card.Description
+        >
     </Card.Header>
     <Card.Content>
         <form method="post" use:enhance class="grid gap-4">
-            <Form.Field {form} name="name" >
+            <Form.Field form={form} name="name">
                 <Form.Control let:attrs>
                     <Form.Label for="namel">Name</Form.Label>
                     <Input {...attrs} bind:value={$formData.name} />
                 </Form.Control>
-                <Form.Description>
-                    Your name.
-                </Form.Description>
+                <Form.Description>Your name.</Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Form.Field {form} name="email" >
+            <Form.Field form={form} name="email">
                 <Form.Control let:attrs>
                     <Form.Label for="email">Email</Form.Label>
-                    <Input type="email" {...attrs} bind:value={$formData.email} />
+                    <Input
+                        type="email"
+                        {...attrs}
+                        bind:value={$formData.email}
+                    />
                 </Form.Control>
                 <Form.Description>
                     This is the email that will be associated with your account.
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Form.Field {form} name="username" >
+            <Form.Field form={form} name="username">
                 <Form.Control let:attrs>
                     <Form.Label for="username">Username</Form.Label>
                     <Input {...attrs} bind:value={$formData.username} />
                 </Form.Control>
                 <Form.Description>
-                    This is the username that will be associated with your account.
+                    This is the username that will be associated with your
+                    account.
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Form.Field {form} name="password" >
+            <Form.Field form={form} name="password">
                 <Form.Control let:attrs>
                     <Form.Label for="password">Password</Form.Label>
-                    <Input type="password" {...attrs} bind:value={$formData.password} />
+                    <Input
+                        type="password"
+                        {...attrs}
+                        bind:value={$formData.password}
+                    />
                 </Form.Control>
                 <Form.Description>
                     This the password that will be used to secure your account.
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Form.Field {form} name="confirmPassword" >
+            <Form.Field form={form} name="confirmPassword">
                 <Form.Control let:attrs>
-                    <Form.Label for="confirmPassword">Confirm Password</Form.Label>
-                    <Input type="password" {...attrs} bind:value={$formData.confirmPassword} />
+                    <Form.Label for="confirmPassword"
+                        >Confirm Password</Form.Label
+                    >
+                    <Input
+                        type="password"
+                        {...attrs}
+                        bind:value={$formData.confirmPassword}
+                    />
                 </Form.Control>
                 <Form.Description>
                     Be sure that your password is set correctly!
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="development"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} theme={runtime.themeManager.computedTheme} />
+            <Turnstile
+                on:turnstile-callback={getTurnstileToken}
+                siteKey={PUBLIC_NODE_ENV == "development"
+                    ? "3x00000000000000000000FF"
+                    : PUBLIC_TURNSTILE_SITEKEY}
+                theme={runtime.themeManager.computedTheme}
+            />
             <Form.Button>Submit</Form.Button>
         </form>
     </Card.Content>
-    <Card.Footer class="flex flex-col gap-4 items-start">
+    <Card.Footer class="flex flex-col items-start gap-4">
         <Card.Description>
             Already have an account? <a href="/sign-in">Sign In</a>
         </Card.Description>

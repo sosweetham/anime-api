@@ -9,4 +9,8 @@ let {
 }: AvatarPrimitive.ImageProps = $props();
 </script>
 
-<AvatarPrimitive.Image bind:ref class={cn("aspect-square size-full", className)} {...restProps} />
+<AvatarPrimitive.Image
+    bind:ref={ref}
+    class={cn("aspect-square size-full", className)}
+    {...restProps}
+/>

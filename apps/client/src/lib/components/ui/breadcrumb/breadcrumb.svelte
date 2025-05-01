@@ -11,5 +11,5 @@ let {
 </script>
 
 <nav bind:this={ref} class={className} aria-label="breadcrumb" {...restProps}>
-	{@render children?.()}
+    {@render children?.()}
 </nav>

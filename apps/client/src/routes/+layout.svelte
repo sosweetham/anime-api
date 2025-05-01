@@ -7,9 +7,9 @@ import type { Theme } from "$lib/controllers/theme";
 import AppSidebar from "$lib/fragments/AppSidebar.svelte";
 import { runtime } from "$lib/controllers/runtime.svelte";
 
-import { goto } from '$app/navigation';
-import { getSessionData } from '$lib/auth-client';
-import { untrack } from 'svelte';
+import { goto } from "$app/navigation";
+import { getSessionData } from "$lib/auth-client";
+import { untrack } from "svelte";
 
 let { children } = $props();
 
@@ -32,9 +32,9 @@ onMount(async () => {
         <AppSidebar />
     </div>
     {#if !runtime.sidebarIsOpen}
-	<div class="fixed bottom-[22px] left-[18px] z-50">
-		<Sidebar.Trigger />
-	</div>
+        <div class="fixed bottom-[22px] left-[18px] z-50">
+            <Sidebar.Trigger />
+        </div>
     {/if}
     {@render children()}
 </Sidebar.Provider>

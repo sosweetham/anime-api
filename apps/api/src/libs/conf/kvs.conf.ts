@@ -7,7 +7,7 @@ export class KvsConfig {
         }
         if (Number.parseInt(kvsPort) < 1 || Number.parseInt(kvsPort) > 65535) {
             throw new RangeError(
-                "KVS port must be a number between 1 and 65535"
+                "KVS port must be a number between 1 and 65535",
             );
         }
         this.kvsPort = Number.parseInt(kvsPort);

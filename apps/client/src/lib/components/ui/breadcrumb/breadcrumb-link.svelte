@@ -23,9 +23,9 @@ const attrs = $derived({
 </script>
 
 {#if child}
-	{@render child({ props: attrs })}
+    {@render child({ props: attrs })}
 {:else}
-	<a bind:this={ref} {...attrs}>
-		{@render children?.()}
-	</a>
+    <a bind:this={ref} {...attrs}>
+        {@render children?.()}
+    </a>
 {/if}

@@ -80,13 +80,15 @@ const { form: formData, enhance } = form;
 </script>
 
 <Card.Root class="mx-auto max-w-sm">
-	<Card.Header>
-		<Card.Title class="text-2xl">Forgot Password?</Card.Title>
-		<Card.Description>Enter your details below to recover your Anime-API account.</Card.Description>
-	</Card.Header>
-	<Card.Content>
+    <Card.Header>
+        <Card.Title class="text-2xl">Forgot Password?</Card.Title>
+        <Card.Description
+            >Enter your details below to recover your Anime-API account.</Card.Description
+        >
+    </Card.Header>
+    <Card.Content>
         <form method="post" use:enhance class="grid gap-4">
-            <Form.Field {form} name="email" >
+            <Form.Field form={form} name="email">
                 <Form.Control let:attrs>
                     <Form.Label for="username">Email</Form.Label>
                     <Input {...attrs} bind:value={$formData.email} />
@@ -96,7 +98,13 @@ const { form: formData, enhance } = form;
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV=="development"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} theme={runtime.themeManager.computedTheme} />
+            <Turnstile
+                on:turnstile-callback={getTurnstileToken}
+                siteKey={PUBLIC_NODE_ENV == "development"
+                    ? "3x00000000000000000000FF"
+                    : PUBLIC_TURNSTILE_SITEKEY}
+                theme={runtime.themeManager.computedTheme}
+            />
             <Form.Button disabled={submitIsDisabled}>Submit</Form.Button>
         </form>
     </Card.Content>

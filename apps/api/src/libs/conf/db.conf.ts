@@ -11,7 +11,7 @@ export class DbConfig {
         dbNamespace?: string,
         dbDatabase?: string,
         dbUsername?: string,
-        dbPassword?: string
+        dbPassword?: string,
     ) {
         if (!dbUrl) {
             throw new IsRequiredError("Database URL is required");

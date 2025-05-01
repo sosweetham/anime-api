@@ -6,7 +6,7 @@ const DEFAULT_CONFIG: DbConfig = animeAPIConfig.dbConfig;
 
 // Define the function to get the database instance
 export async function getDb(
-    config: DbConfig = DEFAULT_CONFIG
+    config: DbConfig = DEFAULT_CONFIG,
 ): Promise<Surreal> {
     const db = new Surreal();
 
@@ -32,7 +32,7 @@ export async function getDb(
         } catch (err) {
             console.error(
                 "Failed to connect to SurrealDB:",
-                err instanceof Error ? err.message : String(err)
+                err instanceof Error ? err.message : String(err),
             );
             await db.close();
         }

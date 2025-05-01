@@ -32,60 +32,64 @@ const handleSignOut = async () => {
 </script>
 
 <Sidebar.Root>
-	<Sidebar.Header>
-		<div class="flex items-center justify-center">
-			<a href="/">
-				<h1 class="scroll-m-20 text-xl font-extrabold tracking-tight">ANIME-API</h1>
-			</a>
-		</div>
-	</Sidebar.Header>
-	<Sidebar.Content>
-		<Sidebar.Group>
-			<Sidebar.GroupLabel>Categories</Sidebar.GroupLabel>
-			<div class="flex flex-col gap-1">
-				{#each supported as item}
-					<Sidebar.MenuButton
-						isActive={item.href.split('/')[1] === page.url.pathname.split('/')[1]}
-					>
-						{#snippet child({ props })}
-							{@const Icon = item.icon}
-							<a href={item.href} {...props}>
-								<Icon />
-								<span class="capitalize">{item.text}</span>
-							</a>
-						{/snippet}
-					</Sidebar.MenuButton>
-				{/each}
-			</div>
-		</Sidebar.Group>
-	</Sidebar.Content>
-	<Sidebar.Footer>
-		<div class="flex justify-end items-center mb-1 gap-1">
-			<div>
+    <Sidebar.Header>
+        <div class="flex items-center justify-center">
+            <a href="/">
+                <h1 class="scroll-m-20 text-xl font-extrabold tracking-tight">
+                    ANIME-API
+                </h1>
+            </a>
+        </div>
+    </Sidebar.Header>
+    <Sidebar.Content>
+        <Sidebar.Group>
+            <Sidebar.GroupLabel>Categories</Sidebar.GroupLabel>
+            <div class="flex flex-col gap-1">
+                {#each supported as item}
+                    <Sidebar.MenuButton
+                        isActive={item.href.split("/")[1] ===
+                            page.url.pathname.split("/")[1]}
+                    >
+                        {#snippet child({ props })}
+                            {@const Icon = item.icon}
+                            <a href={item.href} {...props}>
+                                <Icon />
+                                <span class="capitalize">{item.text}</span>
+                            </a>
+                        {/snippet}
+                    </Sidebar.MenuButton>
+                {/each}
+            </div>
+        </Sidebar.Group>
+    </Sidebar.Content>
+    <Sidebar.Footer>
+        <div class="mb-1 flex items-center justify-end gap-1">
+            <div>
                 {#key runtime.signedIn}
-                {#await getSessionData()}
-                    <Button href="/sign-in">Sign In</Button>
-                    {:then session}
-                    {#if runtime.signedIn && session?.user}
-                        <NavUser user={
-                            {
-                                name: session?.user.name,
-                                email: session?.user.email,
-                                avatar: session?.user.image as string,
-                            }
-                        } {handleSignOut} />
-                    {:else}
+                    {#await getSessionData()}
                         <Button href="/sign-in">Sign In</Button>
-                    {/if}
+                    {:then session}
+                        {#if runtime.signedIn && session?.user}
+                            <NavUser
+                                user={{
+                                    name: session?.user.name,
+                                    email: session?.user.email,
+                                    avatar: session?.user.image as string,
+                                }}
+                                handleSignOut={handleSignOut}
+                            />
+                        {:else}
+                            <Button href="/sign-in">Sign In</Button>
+                        {/if}
                     {:catch}
                         <Button href="/sign-in">Sign In</Button>
-                {/await}
+                    {/await}
                 {/key}
             </div>
-			<div>
-				<LightSwitch />
-			</div>
+            <div>
+                <LightSwitch />
+            </div>
             <Sidebar.Trigger />
-		</div>
-	</Sidebar.Footer>
+        </div>
+    </Sidebar.Footer>
 </Sidebar.Root>

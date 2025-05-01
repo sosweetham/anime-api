@@ -18,22 +18,22 @@ export class AnimeAPIConfig {
             Bun.env.SURREAL_NS,
             Bun.env.SURREAL_DB,
             Bun.env.SURREAL_USER,
-            Bun.env.SURREAL_PASS
+            Bun.env.SURREAL_PASS,
         );
         this.smtpConfig = new SmtpConfig(
             Bun.env.SMTP_HOST,
             Bun.env.SMTP_PORT,
             Bun.env.SMTP_USER,
-            Bun.env.SMTP_PASS
+            Bun.env.SMTP_PASS,
         );
         this.nodeConfig = new NodeConfig(Bun.env.NODE_ENV);
         this.cloudflareConfig = new CloudflareConfig(
-            Bun.env.TURNSTILE_SECRETKEY
+            Bun.env.TURNSTILE_SECRETKEY,
         );
         this.clientConfig = new ClientConfig(Bun.env.CLIENT_HOST);
         this.kvsConfig = new KvsConfig(
             Bun.env.VALKEY_HOST,
-            Bun.env.VALKEY_PORT
+            Bun.env.VALKEY_PORT,
         );
     }
 }

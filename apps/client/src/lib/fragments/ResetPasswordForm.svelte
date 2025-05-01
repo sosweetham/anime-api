@@ -74,34 +74,44 @@ const form = superForm(defaults(zod(resetPasswordSchema)), {
 const { form: formData, enhance } = form;
 </script>
 
-    <Card.Root class="mx-auto max-w-sm">
-        <Card.Header>
-            <Card.Title class="text-2xl">Reset Password</Card.Title>
-            <Card.Description>Enter your details below to recover your Anime-API account.</Card.Description>
-        </Card.Header>
-        <Card.Content>
-            <form method="post" use:enhance class="grid gap-4">
-                <Form.Field {form} name="password" >
-                    <Form.Control let:attrs>
-                        <Form.Label for="password">Password</Form.Label>
-                        <Input type="password" {...attrs} bind:value={$formData.password} />
-                    </Form.Control>
-                    <Form.Description>
-                        This will be your new password.
-                    </Form.Description>
-                    <Form.FieldErrors />
-                </Form.Field>
-                <Form.Field {form} name="confirmPassword" >
-                    <Form.Control let:attrs>
-                        <Form.Label for="confirmPassword">Confirm Password</Form.Label>
-                        <Input type="password" {...attrs} bind:value={$formData.confirmPassword} />
-                    </Form.Control>
-                    <Form.Description>
-                        Confirm your new password.
-                    </Form.Description>
-                    <Form.FieldErrors />
-                </Form.Field>
-                <Form.Button>Submit</Form.Button>
-            </form>
-        </Card.Content>
-    </Card.Root>
+<Card.Root class="mx-auto max-w-sm">
+    <Card.Header>
+        <Card.Title class="text-2xl">Reset Password</Card.Title>
+        <Card.Description
+            >Enter your details below to recover your Anime-API account.</Card.Description
+        >
+    </Card.Header>
+    <Card.Content>
+        <form method="post" use:enhance class="grid gap-4">
+            <Form.Field form={form} name="password">
+                <Form.Control let:attrs>
+                    <Form.Label for="password">Password</Form.Label>
+                    <Input
+                        type="password"
+                        {...attrs}
+                        bind:value={$formData.password}
+                    />
+                </Form.Control>
+                <Form.Description>
+                    This will be your new password.
+                </Form.Description>
+                <Form.FieldErrors />
+            </Form.Field>
+            <Form.Field form={form} name="confirmPassword">
+                <Form.Control let:attrs>
+                    <Form.Label for="confirmPassword"
+                        >Confirm Password</Form.Label
+                    >
+                    <Input
+                        type="password"
+                        {...attrs}
+                        bind:value={$formData.confirmPassword}
+                    />
+                </Form.Control>
+                <Form.Description>Confirm your new password.</Form.Description>
+                <Form.FieldErrors />
+            </Form.Field>
+            <Form.Button>Submit</Form.Button>
+        </form>
+    </Card.Content>
+</Card.Root>

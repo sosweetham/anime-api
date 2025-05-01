@@ -12,10 +12,10 @@ let {
 </script>
 
 <div
-	bind:this={ref}
-	data-sidebar="group"
-	class={cn("relative flex w-full min-w-0 flex-col p-2", className)}
-	{...restProps}
+    bind:this={ref}
+    data-sidebar="group"
+    class={cn("relative flex w-full min-w-0 flex-col p-2", className)}
+    {...restProps}
 >
-	{@render children?.()}
+    {@render children?.()}
 </div>

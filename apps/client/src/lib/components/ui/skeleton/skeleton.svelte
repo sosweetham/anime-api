@@ -11,7 +11,7 @@ let {
 </script>
 
 <div
-	bind:this={ref}
-	class={cn("bg-muted animate-pulse rounded-md", className)}
-	{...restProps}
+    bind:this={ref}
+    class={cn("animate-pulse rounded-md bg-muted", className)}
+    {...restProps}
 ></div>

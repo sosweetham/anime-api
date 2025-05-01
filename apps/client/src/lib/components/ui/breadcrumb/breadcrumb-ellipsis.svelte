@@ -12,12 +12,12 @@ let {
 </script>
 
 <span
-	bind:this={ref}
-	role="presentation"
-	aria-hidden="true"
-	class={cn("flex size-9 items-center justify-center", className)}
-	{...restProps}
+    bind:this={ref}
+    role="presentation"
+    aria-hidden="true"
+    class={cn("flex size-9 items-center justify-center", className)}
+    {...restProps}
 >
-	<Ellipsis class="size-4" />
-	<span class="sr-only">More</span>
+    <Ellipsis class="size-4" />
+    <span class="sr-only">More</span>
 </span>

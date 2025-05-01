@@ -46,6 +46,7 @@
         "test": "npm run test:unit -- --run && npm run test:e2e",
         "test:e2e": "playwright test",
         "format": "npx @biomejs/biome format --write ./src",
+        "format-svelte": "npx prettier --write ./src",
         "check-format": "npx @biomejs/biome format ./src",
         "lint": "npx @biomejs/biome lint --write ./src",
         "check-lint": "npx @biomejs/biome lint ./src"

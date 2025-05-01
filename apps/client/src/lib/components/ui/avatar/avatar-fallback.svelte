@@ -10,7 +10,7 @@ let {
 </script>
 
 <AvatarPrimitive.Fallback
-	bind:ref
-	class={cn("bg-muted flex size-full items-center justify-center", className)}
-	{...restProps}
+    bind:ref={ref}
+    class={cn("flex size-full items-center justify-center bg-muted", className)}
+    {...restProps}
 />

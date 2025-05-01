@@ -4,15 +4,15 @@ import { captcha, username } from "better-auth/plugins";
 import { surrealAdapter } from "surreal-better-auth";
 import { db } from "../../stores/db";
 import { kvsClient } from "../../stores/kvs";
-import { emailTransporter } from "../email";
 import { animeAPIConfig } from "../conf";
+import { emailTransporter } from "../email";
 
-console.log("NODE_ENV", Bun.env.NODE_ENV);
 export const auth = betterAuth({
     database: surrealAdapter(db),
     plugins: [
         username(),
-        ...(animeAPIConfig.nodeConfig.nodeEnv === "development"
+        ...(animeAPIConfig.nodeConfig.nodeEnv === "development" ||
+        animeAPIConfig.nodeConfig.nodeEnv === "test"
             ? []
             : [
                   captcha({
@@ -67,7 +67,7 @@ export const auth = betterAuth({
             const sendUrl = new URL(url);
             sendUrl.searchParams.set(
                 "callbackURL",
-                `${animeAPIConfig.clientConfig.clientHost}/verified`
+                `${animeAPIConfig.clientConfig.clientHost}/verified`,
             );
             const html = `Click the link to verify your email: ${sendUrl.toString()}`;
 

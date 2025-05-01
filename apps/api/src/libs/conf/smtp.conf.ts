@@ -10,7 +10,7 @@ export class SmtpConfig {
         smtpHost?: string,
         smtpPort?: string,
         smtpUser?: string,
-        smtpPass?: string
+        smtpPass?: string,
     ) {
         if (!smtpHost) {
             throw new IsRequiredError("SMTP host is required");
@@ -24,7 +24,7 @@ export class SmtpConfig {
             Number.parseInt(smtpPort) > 65535
         ) {
             throw new RangeError(
-                "SMTP port must be a number between 1 and 65535"
+                "SMTP port must be a number between 1 and 65535",
             );
         }
         this.smtpPort = Number.parseInt(smtpPort);

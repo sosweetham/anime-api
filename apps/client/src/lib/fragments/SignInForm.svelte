@@ -80,13 +80,15 @@ const { form: formData, enhance } = form;
 </script>
 
 <Card.Root class="mx-auto max-w-sm">
-	<Card.Header>
-		<Card.Title class="text-2xl">Sign In</Card.Title>
-		<Card.Description>Enter your details below to sign in to your Anime-API account.</Card.Description>
-	</Card.Header>
-	<Card.Content>
+    <Card.Header>
+        <Card.Title class="text-2xl">Sign In</Card.Title>
+        <Card.Description
+            >Enter your details below to sign in to your Anime-API account.</Card.Description
+        >
+    </Card.Header>
+    <Card.Content>
         <form method="post" use:enhance class="grid gap-4">
-            <Form.Field {form} name="username" >
+            <Form.Field form={form} name="username">
                 <Form.Control let:attrs>
                     <Form.Label for="username">Username</Form.Label>
                     <Input {...attrs} bind:value={$formData.username} />
@@ -96,37 +98,51 @@ const { form: formData, enhance } = form;
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Form.Field {form} name="password" >
+            <Form.Field form={form} name="password">
                 <Form.Control let:attrs>
                     <Form.Label for="password">Password</Form.Label>
-                    <Input type="password" {...attrs} bind:value={$formData.password} />
+                    <Input
+                        type="password"
+                        {...attrs}
+                        bind:value={$formData.password}
+                    />
                 </Form.Control>
                 <Form.Description>
                     The password you used to register.
                 </Form.Description>
                 <Form.FieldErrors />
             </Form.Field>
-            <Turnstile on:turnstile-callback={getTurnstileToken} siteKey={PUBLIC_NODE_ENV==="development"?"3x00000000000000000000FF":PUBLIC_TURNSTILE_SITEKEY} theme={runtime.themeManager.computedTheme} />
+            <Turnstile
+                on:turnstile-callback={getTurnstileToken}
+                siteKey={PUBLIC_NODE_ENV === "development"
+                    ? "3x00000000000000000000FF"
+                    : PUBLIC_TURNSTILE_SITEKEY}
+                theme={runtime.themeManager.computedTheme}
+            />
             <Form.Field
-                {form}
+                form={form}
                 name="rememberMe"
                 class="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
             >
                 <Form.Control let:attrs>
-                <Checkbox {...attrs} bind:checked={$formData.rememberMe} />
-                <div class="space-y-1 leading-none">
-                    <Form.Label>Remember Me</Form.Label>
-                    <Form.Description>
-                    This will keep you logged in for a while.
-                    </Form.Description>
-                </div>
-                <input name={attrs.name} value={$formData.rememberMe} hidden />
+                    <Checkbox {...attrs} bind:checked={$formData.rememberMe} />
+                    <div class="space-y-1 leading-none">
+                        <Form.Label>Remember Me</Form.Label>
+                        <Form.Description>
+                            This will keep you logged in for a while.
+                        </Form.Description>
+                    </div>
+                    <input
+                        name={attrs.name}
+                        value={$formData.rememberMe}
+                        hidden
+                    />
                 </Form.Control>
             </Form.Field>
             <Form.Button>Submit</Form.Button>
         </form>
     </Card.Content>
-    <Card.Footer class="flex flex-col gap-4 items-start">
+    <Card.Footer class="flex flex-col items-start gap-4">
         <Card.Description>
             Don't have an account? <a href="/sign-up">Sign Up</a>
         </Card.Description>

@@ -12,5 +12,5 @@ let {
 </script>
 
 <div bind:this={ref} class={cn("p-6", className)} {...restProps}>
-	{@render children?.()}
+    {@render children?.()}
 </div>
