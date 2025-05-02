@@ -4,6 +4,7 @@ import {
 } from "@valkey/valkey-glide";
 import { animeAPIConfig } from "../../libs/conf";
 
+console.log("KVS Config", animeAPIConfig.kvsConfig);
 const conf: BaseClientConfiguration = {
     addresses: [
         {

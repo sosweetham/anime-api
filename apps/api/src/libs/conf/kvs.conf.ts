@@ -1,7 +1,7 @@
 export class KvsConfig {
-    kvsPort: number;
     kvsHost: string;
-    constructor(kvsPort?: string, kvsHost?: string) {
+    kvsPort: number;
+    constructor(kvsHost?: string, kvsPort?: string) {
         if (!kvsPort) {
             throw new Error("KVS port is required");
         }

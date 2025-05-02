@@ -26,7 +26,11 @@ export class AnimeAPIConfig {
             Bun.env.SMTP_USER,
             Bun.env.SMTP_PASS,
         );
-        this.nodeConfig = new NodeConfig(Bun.env.NODE_ENV);
+        this.nodeConfig = new NodeConfig(
+            Bun.env.NODE_ENV,
+            Bun.env.PLATFORM,
+            Bun.env.PORT,
+        );
         this.cloudflareConfig = new CloudflareConfig(
             Bun.env.TURNSTILE_SECRETKEY,
         );

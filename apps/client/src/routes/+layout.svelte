@@ -3,13 +3,9 @@ import { onMount } from "svelte";
 import "../app.css";
 import * as Sidebar from "$lib/components/ui/sidebar";
 import { Toaster } from "$lib/components/ui/sonner";
+import { runtime } from "$lib/controllers/runtime.svelte";
 import type { Theme } from "$lib/controllers/theme";
 import AppSidebar from "$lib/fragments/AppSidebar.svelte";
-import { runtime } from "$lib/controllers/runtime.svelte";
-
-import { goto } from "$app/navigation";
-import { getSessionData } from "$lib/auth-client";
-import { untrack } from "svelte";
 
 let { children } = $props();
 

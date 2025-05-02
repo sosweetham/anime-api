@@ -1,6 +1,7 @@
 import cors from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
+import { animeAPIConfig } from "./libs/conf";
 import { routes } from "./routes";
 import { cleanup } from "./scripts";
 import { handleExit, handleSigInt, handleSigTerm } from "./utils";
@@ -16,7 +17,7 @@ const app = new Elysia()
     .use(cors())
     .use(swagger())
     .use(routes)
-    .listen(Number.parseInt(Bun.env.API_PORT || "4000"));
+    .listen(animeAPIConfig.nodeConfig.port);
 
 console.log(
     `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,

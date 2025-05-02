@@ -1,14 +1,15 @@
 import { readdirSync, unlinkSync } from "node:fs";
 import { join } from "node:path";
+import { animeAPIConfig } from "../libs/conf";
 
 const TMP_DIR = "/tmp";
 const SOCKET_PREFIX = "glide-socket-";
 
 // Valkey Glide basically doesnt work well with docker compose sync so am handling some cleanup manually here
-
+console.log(animeAPIConfig.nodeConfig);
 export const cleanup = () => {
     console.log("Cleanup called");
-    if (Bun.env.PLATFORM === "CONTAINER") {
+    if (animeAPIConfig.nodeConfig.platform === "container") {
         try {
             const files = readdirSync(TMP_DIR);
             console.log("Files in /tmp:", files);

@@ -20,5 +20,5 @@ RUN bun install --frozen-lockfile
 FROM base AS dev-api
 COPY --from=build /app /app
 WORKDIR /app/apps/api
-EXPOSE 3000
+EXPOSE ${PORT:-3000}
 CMD ["bun", "dev"]
